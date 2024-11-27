@@ -165,3 +165,22 @@ else
   echo -e "${COLOR_YELLOW}fcitx5-skin-fluentdark-git is install${COLOR_NC}"
   trizen -S fcitx5-skin-fluentdark-git --noconfirm
 fi
+if pacman -Qi adwaita-qt5 >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}adwaita-qt5 is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}adwaita-qt5 is not install"
+  trizen -S adwaita-qt5 --noconfirm
+fi
+if pacman -Qi adwaita-qt6 >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}adwaita-qt6 is installed"
+else
+  echo -e "${COLOR_YELLOW}adwaita-qt6 is not install"
+  trizen -S adwaita-qt6 --noconfirm
+fi
+if pacman -Qi ranger >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}ranger is intalled${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}ranger is not install${COLOR_NC}"
+  sudo pacman -S ranger --noconfirm
+fi
+cp -r config/ranger ${HOME}/.config
