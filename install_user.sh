@@ -1,106 +1,110 @@
 #!/bin/env bash
+COLOR_GREEN='\033[0;32m'
+COLOR_RED='\033[0;31m'
+COLOR_YELLOW='\033[0;33m'
+COLOR_NC='\033[0m'
 if command -v waybar >/dev/null 2>&1; then
-  echo "waybar is installed"
+  echo -e "${COLOR_GREEN}waybar is installed${COLOR_NC}"
 else
-  echo "waybar is not installed"
+  echo -e "${COLOR_YELLOW}waybar is not installed${COLOR_NC}"
   sudo pacman -S waybar --noconfirm
 fi
 
 if command -v obsidian >/dev/null 2>&1; then
-  echo "obsidian is installed"
+  echo -e "${COLOR_GREEN}bsidian is installed${COLOR_NC}"
 else
-  echo "obsidian is not install"
+  echo -e "${COLOR_YELLOW}obsidian is not install${COLOR_NC}"
   sudo pacman -S obsidian --noconfirm
 fi
 if command -v google-chrome-stable >/dev/null 2>&1; then
-  echo "google-chrome-stable is installed"
+  echo -e "${COLOR_GREEN}oogle-chrome-stable is installed${COLOR_NC}"
 else
-  echo "google-chrome-stable is not install"
+  echo -e "${COLOR_YELLOW}google-chrome-stable is not install${COLOR_NC}"
   trizen -S google-chrome --noconfirm
 fi
 
 if command -v kate >/dev/null 2>&1; then
-  echo "kate is installed"
+  echo -e "${COLOR_GREEN}kate is installed${COLOR_NC}"
 else
-  echo "kate is not install"
+  echo -e "${COLOR_YELLOW}kate is not install${COLOR_NC}"
   sudo pacman -S kate --noconfirm
 fi
 if command -v ssh >/dev/null 2>&1; then
-  echo "openssh is installed"
+  echo -e "${COLOR_GREEN}openssh is installed${COLOR_NC}"
 else
-  echo "openssh is not install"
+  echo -e "${COLOR_YELLOW}openssh is not install${COLOR_NC}"
   sudo pacman -S openssh --noconfirm
 fi
 if pacman -Qi otf-font-awesome >/dev/null 2>&1; then
-  echo "otf-font-awesome is installed"
+  echo -e "${COLOR_GREEN}otf-font-awesome is installed${COLOR_NC}"
 else
-  echo "otf-font-awesome is not install"
+  echo -e "${COLOR_YELLOW}otf-font-awesome is not install${COLOR_NC}"
   sudo pacman -S otf-font-awesome --noconfirm
 fi
 if pacman -Qi ttf-arimo-nerd >/dev/null 2>&1; then
-  echo "ttf-arimo-nerd is installed"
+  echo -e "${COLOR_GREEN}ttf-arimo-nerd is installed${COLOR_NC}"
 else
-  echo "ttf-arimo-nerd is not install"
+  echo -e "${COLOR_YELLOW}ttf-arimo-nerd is not install${COLOR_NC}"
   sudo pacman -S ttf-arimo-nerd --noconfirm
 fi
 if pacman -Qi noto-fonts >/dev/null 2>&1; then
-  echo "noto-fonts is installed"
+  echo -e "${COLOR_GREEN}noto-fonts is installed${COLOR_NC}"
 else
-  echo "noto-fonts is not install"
+  echo -e "${COLOR_YELLOW}noto-fonts is not install${COLOR_NC}"
   sudo pacman -S noto-fonts --noconfirm
 fi
 if [ -d ${HOME}/.pyenv ]; then
-  echo "pyenv is installed"
+  echo -e "${COLOR_GREEN}pyenv is installed${COLOR_NC}"
 else
-  echo "pyenv is not install"
+  echo -e "${COLOR_YELLOW}pyenv is not install${COLOR_NC}"
   git clone https://github.com/pyenv/pyenv.git ${HOME}/.pyenv
 fi
 if pacman -Qi tk >/dev/null 2>&1; then
-  echo "tk is installed"
+  echo -e "${COLOR_GREEN}tk is installed${COLOR_NC}"
 else
-  echo "tk is not install"
+  echo -e "${COLOR_YELLOW}tk is not install${COLOR_NC}"
   sudo pacman -S tk --noconfirm
 fi
 if pacman -Qi fzf >/dev/null 2>&1; then
-  echo "fzf is installed"
+  echo -e "${COLOR_GREEN}fzf is installed${COLOR_NC}"
 else
-  echo "fzf is not install"
+  echo -e "${COLOR_YELLOW}fzf is not install${COLOR_NC}"
   sudo pacman -S fzf --noconfirm
 fi
 
 if pacman -Qi the_silver_searcher >/dev/null 2>&1; then
-  echo "the_silver_searcher is installed"
+  echo -e "${COLOR_GREEN}the_silver_searcher is installed${COLOR_NC}"
 else
-  echo "the_silver_searcher is not install"
+  echo -e "${COLOR_YELLOW}the_silver_searcher is not install${COLOR_NC}"
   sudo pacman -S the_silver_searcher --noconfirm
 fi
 
 if pacman -Qi tmux >/dev/null 2>&1; then
-  echo "tmux is installed"
+  echo -e "${COLOR_GREEN}tmux is installed${COLOR_NC}"
 else
-  echo "tmux is not install"
+  echo -e "${COLOR_YELLOW}tmux is not install${COLOR_NC}"
   sudo pacman -S tmux --noconfirm
 fi
 
 if pacman -Qi go >/dev/null 2>&1; then
-  echo "go is installed"
+  echo -e "${COLOR_GREEN}go is installed${COLOR_NC}"
 else
-  echo "go is not install"
+  echo -e "${COLOR_YELLOW}go is not install${COLOR_NC}"
   sudo pacman -S go --noconfirm
 fi
 sudo usermod -aG input $USER
 cp -r config/hypr ${HOME}/.config/hypr
 cp -r config/foot ${HOME}/.config/foot
 if pacman -Qi wmenu >/dev/null 2>&1; then
-  echo "wmenu is installed"
+  echo -e "${COLOR_GREEN}wmenu is installed${COLOR_NC}"
 else
-  echo "wmenu is not install"
+  echo -e "${COLOR_YELLOW}wmenu is not install${COLOR_NC}"
   sudo pacman -S wmenu --noconfirm
 fi
 if [ -f /usr/share/fonts/TTF/BlexMonoNerdFontMono-Text.ttf ]; then
-  echo "BlexMono Nerd Font is installed"
+  echo -e "${COLOR_GREEN}BlexMono Nerd Font is installed${COLOR_NC}"
 else
-  echo "BlexMono Nerd Font is not install"
+  echo -e "${COLOR_YELLOW}BlexMono Nerd Font is not install${COLOR_NC}"
   wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/IBMPlexMono.zip
   unzip IBMPlexMono.zip -d IBMPlexMono
   sudo mv IBMPlexMono/*.ttf /usr/share/fonts/TTF
@@ -108,8 +112,56 @@ else
   rm -rf IBMPlexMono*
 fi
 if pacman -Qi dolphin >/dev/null 2>&1; then
-  echo "dolphin is installed"
+  echo -e "${COLOR_GREEN}dolphin is installed${COLOR_NC}"
 else
-  echo "dolphin is not install"
+  echo -e "${COLOR_YELLOW}dolphin is not install${COLOR_NC}"
   sudo pacman -S dolphin --noconfirm
+fi
+if pacman -Qi xorg-xlsclients >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}xorg-xlsclients is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}xorg-xlsclients is not install${COLOR_NC}"
+  sudo pacman -S xorg-xlsclients --noconfirm
+fi
+if pacman -Qi ripgrep >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}ripgrep is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}ripgrep is not install${COLOR_NC}"
+  sudo pacman -S ripgrep --noconfirm
+fi
+if pacman -Qi fcitx5 >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}fcitx5 is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}fcitx5 is not install${COLOR_NC}"
+  sudo pacman -S fcitx5 --noconfirm
+fi
+if pacman -Qi fcitx5-chinese-addons >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}echo fcitx5-chinese-addons is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}echo fcitx5-chinese-addons is not install${COLOR_NC}"
+  sudo pacman -S fcitx5-chinese-addons --noconfirm
+fi
+if pacman -Qi fcitx5-configtool >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}fcitx5-configtool is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}fcitx5-configtool is not install${COLOR_NC}"
+  sudo pacman -S fcitx5-configtool --noconfirm
+fi
+if pacman -Qi fcitx5-gtk >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}fcitx5-gtk is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}fcitx5-gtk is not install${COLOR_NC}"
+  sudo pacman -S fcitx5-gtk --noconfirm
+fi
+if pacman -Qi fcitx5-qt >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}fcitx5-qt is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}fcitx5-qt is not install${COLOR_NC}"
+  sudo pacman -S fcitx5-qt
+fi
+if pacman -Qi fcitx5-skin-fluentdark-git >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}fcitx5-skin-fluentdark-git is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}fcitx5-skin-fluentdark-git is install${COLOR_NC}"
+  trizen -S fcitx5-skin-fluentdark-git --noconfirm
 fi
