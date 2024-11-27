@@ -11,3 +11,11 @@ sudo pacman -S fzf the_silver_searcher --noconfirm
 sudo pacman -S tmux --noconfirm
 sudo pacman -S go --noconfirm
 sudo usermod -aG input $USER
+cp -r config/hypr ${HOME}/.config/hypr
+cp -r config/foot ${HOME}/.config/foot
+sudo pacman -S wmenu
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/IBMPlexMono.zip
+unzip IBMPlexMono.zip -d IBMPlexMono
+sudo mv IBMPlexMono/*.ttf /usr/share/fonts/TTF
+fc-cache -fv
+rm -rf IBMPlexMono*
