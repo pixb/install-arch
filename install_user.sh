@@ -58,6 +58,15 @@ if [ -d ${HOME}/.pyenv ]; then
 else
   echo -e "${COLOR_YELLOW}pyenv is not install${COLOR_NC}"
   git clone https://github.com/pyenv/pyenv.git ${HOME}/.pyenv
+  export PATH=$HOME/.pyenv/bin:$PATH
+  eval "$(pyenv init -)"
+fi
+if command -v python3 >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}$(python3 --version) is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW} python3 is not install${COLOR_NC}"
+  pyenv install 3.13.0
+  pyenv global 3.13.0
 fi
 if pacman -Qi tk >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}tk is installed${COLOR_NC}"
@@ -181,6 +190,19 @@ if pacman -Qi ranger >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}ranger is intalled${COLOR_NC}"
 else
   echo -e "${COLOR_YELLOW}ranger is not install${COLOR_NC}"
-  sudo pacman -S ranger --noconfirm
+  pip3 install setuptools
+  trizen -S ranger-git --noconfirm
 fi
 cp -r config/ranger ${HOME}/.config
+if pacman -Qi flameshot-git >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}flameshot-git is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}flameshot-git is not install"
+  trizen -S flameshot-git --noconfirm
+fi
+if pacman -Qi grim >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}grim is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}grim is not install${COLOR_NC}"
+  sudo pacman -S grim --noconfirm
+fi
