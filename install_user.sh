@@ -206,3 +206,9 @@ else
   echo -e "${COLOR_YELLOW}grim is not install${COLOR_NC}"
   sudo pacman -S grim --noconfirm
 fi
+if pacman -Qi code >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}code is installend${COLOR_NF}"
+else
+  echo -e "${COLOR_YELLOW}code is not install${COLOR_NF}"
+  sudo pacman -S code --noconfirm
+fi
