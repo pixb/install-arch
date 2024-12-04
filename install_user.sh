@@ -3,6 +3,8 @@ COLOR_GREEN='\033[0;32m'
 COLOR_RED='\033[0;31m'
 COLOR_YELLOW='\033[0;33m'
 COLOR_NC='\033[0m'
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
 if pacman -Qi base-devel >/dev/null 2>&1; then
 	echo -e "${COLOR_GREEN}base-devel is installed${COLOR_NC}"
 else

@@ -25,6 +25,8 @@ ftp_proxy=http://192.168.123.187:10809
 export http_proxy
 export ftp_proxy
 export https_proxy
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
 if pacman -Qi base-devel >/dev/null 2>&1; then
 	echo -e "${COLOR_GREEN}base-devel is installed${COLOR_NC}"
 else
@@ -62,7 +64,7 @@ fi
 
 # install trizen
 if command -v trizen &>/dev/null; then
-	echo "trizen is installed."
+	echo -e "${COLOR_GREEN}trizen is installed.${COLOR_NC}"
 else
 	git clone https://aur.archlinux.org/trizen.git ${HOME}/Downloads/trizen
 	cd ${HOME}/Downloads/trizen
@@ -83,7 +85,7 @@ else
 	git clone git@github.com:pixb/linux-demo.git ${HOME}/dev/linux-demo
 fi
 export EDITOR=vim
-if pacma -Qi rcm >/dev/null 2>&1; then
+if pacman -Qi rcm >/dev/null 2>&1; then
 	echo -e "${COLOR_GREEN}rcm is installed${COLOR_NC}"
 else
 	echo -e "${COLOR_YELLOW}rcm is not install${COLOR_NC}"
@@ -103,6 +105,38 @@ else
 	rcup
 fi
 
-sudo pacman -S fzf --noconfirm
-trizen -S ccat-git --noconfirm
-sudo pacman -S the_silver_searcher --noconfirm
+if pacman -Qi fzf >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}fzf is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}fzf is not install${COLOR_NC}"
+	sudo pacman -S fzf --noconfirm
+fi
+
+if pacman -Qi the_silver_searcher >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}the_silver_searcher is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}the_silver_searcher is not install${COLOR_NC}"
+	sudo pacman -S the_silver_searcher --noconfirm
+fi
+
+if pacman -Qi nodejs >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}nodejs is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}nodejs is not install${COLOR_NC}"
+	sudo pacman -S nodejs --noconfirm
+fi
+
+if pacman -Qi npm >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}npm is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}npm is not install${COLOR_NC}"
+	sudo pacman -S npm --noconfirm
+fi
+
+if pacman -Qi ccat >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}ccat is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}ccat is not install${COLOR_NC}"
+	# unset http_proxy https_proxy ftp_proxy
+	trizen -S ccat --noconfirm
+fi
