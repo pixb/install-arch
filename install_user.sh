@@ -244,8 +244,8 @@ else
 	sudo pacman -S grim --noconfirm
 fi
 if pacman -Qi code >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}code is installend${COLOR_NF}"
+	echo -e "${COLOR_GREEN}code is installend${COLOR_NC}"
 else
-	echo -e "${COLOR_YELLOW}code is not install${COLOR_NF}"
+	echo -e "${COLOR_YELLOW}code is not install${COLOR_NC}"
 	sudo pacman -S code --noconfirm
 fi
