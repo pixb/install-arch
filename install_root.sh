@@ -202,7 +202,7 @@ cat "${HOST_NAME}" >>/etc/hostname
 cat <<EOF >/etc/hosts
 127.0.0.1       localhost
 ::1             localhost
-127.0.1.1       ${HOSTNAME}.localdomain ${HOSTNAME}
+127.0.1.1       ${HOST_NAME}.localdomain ${HOST_NAME}
 EOF
 
 systemctl enable NetworkManager.service
@@ -210,8 +210,12 @@ echo -e "${COLOR_GREEN}Input root password${COLOR_NC}"
 passwd
 echo -e "${COLOR_GREEN}Plase input username:${COLOR_NC}"
 read -r USER_NAME
-useradd --create-home --groups wheel,root --shell /bin/zsh "${USER_NAME}"
-echo -e "${COLOR_GREEN}Input ${USER_NAME} password${COLOR_NC}"
-passwd "${USER_NAME}"
+if id "${USER_NAME}" &>/dev/null; then
+	echo -e "${COLOR_GREEN}${USER_NAME} is exists${COLOR_NC}"
+else
+	useradd --create-home --groups wheel,root --shell /bin/zsh "${USER_NAME}"
+	echo -e "${COLOR_GREEN}Input ${USER_NAME} password${COLOR_NC}"
+	passwd "${USER_NAME}"
+fi
 
 sed -i 's/# *\(%wheel.*NOPASSWD: ALL\)/\1/' /etc/sudoers
