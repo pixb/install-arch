@@ -5,6 +5,17 @@ COLOR_YELLOW='\033[0;33m'
 COLOR_NC='\033[0m'
 pacman-key --init
 pacman-key --populate archlinux
+CPU="Intel"
+if grep -q AMD /proc/cpuinfo; then
+	echo "AMD CPU"
+	CPU="AMD"
+fi
+
+if grep -q Intel /proc/cpuinfo; then
+	echo "Intel CPU"
+	CPU="Intel"
+fi
+
 if pacman -Qi base-devel >/dev/null 2>&1; then
 	echo -e "${COLOR_GREEN}base-devel is installed${COLOR_NC}"
 else
@@ -45,6 +56,13 @@ else
 	pacman -S unzip --noconfirm
 fi
 
+if pacman -Qi vim >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}vim is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}vim is not install${COLOR_NC}"
+	pacman -S vim --noconfirm
+fi
+
 if [ -d res/vimrc ]; then
 	echo -e "${COLOR_GREEN}echo ./res/vimrc is exists${COLOR_NC}"
 else
@@ -64,3 +82,21 @@ else
 	echo -e "${COLOR_YELLOW}wget is not install${COLOR_NC}"
 	pacman -S wget --noconfirm
 fi
+
+pacman -S linux-headers --noconfirm
+if [ ${CPU} = "Intel" ]; then
+	echo -e "${COLOR_GREEN}Install intel-ucode${COLOR_NC}"
+	pacman -S intel-ucode --noconfirm
+else
+	echo -e "${COLOR_GREEN}Install amd-ucode${COLOR_NC}"
+	pacman -S amd-ucode --noconfirm
+fi
+pacman -S tree --noconfirm
+pacman -S man --noconfirm
+pacman -S linux-lts --noconfirm
+pacman -S linux-lts-headers --noconfirm
+pacman -S neovim --noconfirm
+pacman -S networkmanager --noconfirm
+pacman -S net-tools --noconfirm
+pacman -S wpa_supplicant --noconfirm
+pacman -S zsh --noconfirm
