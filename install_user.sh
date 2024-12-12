@@ -15,12 +15,13 @@ if [ -d "${HOME}/dev/vimrc" ]; then
 else
 	echo -e "${COLOR_YELLOW}echo vimrc is not exists${COLOR_NC}"
 	git clone https://github.com/pixb/vimrc.git "${HOME}/dev/vimrc"
-	if [ -e "${HOME}/.vimrc" ]; then
-		echo -e "${COLOR_GREEN}${HOME}/.vimrc is exists${COLOR_NC}"
-	else
-		echo -e "${COLOR_GREEN}${HOME}/.vimrc is not exists${COLOR_NC}"
-		ln -sf "${HOME}/dev/vimrc" "${HOME}"/.vimrc
-	fi
+fi
+
+if [ -e "${HOME}/.vimrc" ]; then
+	echo -e "${COLOR_GREEN}${HOME}/.vimrc is exists${COLOR_NC}"
+else
+	echo -e "${COLOR_GREEN}${HOME}/.vimrc is not exists${COLOR_NC}"
+	ln -sf "${HOME}/dev/vimrc/vimrc" "${HOME}"/.vimrc
 fi
 
 if pacman -Qi neovim >/dev/null 2>&1; then
@@ -91,54 +92,6 @@ else
 	echo -e "${COLOR_YELLOW}ripgrep is not install${COLOR_NC}"
 	sudo pacman -S ripgrep --noconfirm
 fi
-if pacman -Qi fcitx5 >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}fcitx5 is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}fcitx5 is not install${COLOR_NC}"
-	sudo pacman -S fcitx5 --noconfirm
-fi
-if pacman -Qi fcitx5-chinese-addons >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}echo fcitx5-chinese-addons is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}echo fcitx5-chinese-addons is not install${COLOR_NC}"
-	sudo pacman -S fcitx5-chinese-addons --noconfirm
-fi
-if pacman -Qi fcitx5-configtool >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}fcitx5-configtool is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}fcitx5-configtool is not install${COLOR_NC}"
-	sudo pacman -S fcitx5-configtool --noconfirm
-fi
-if pacman -Qi fcitx5-gtk >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}fcitx5-gtk is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}fcitx5-gtk is not install${COLOR_NC}"
-	sudo pacman -S fcitx5-gtk --noconfirm
-fi
-if pacman -Qi fcitx5-qt >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}fcitx5-qt is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}fcitx5-qt is not install${COLOR_NC}"
-	sudo pacman -S fcitx5-qt
-fi
-if pacman -Qi fcitx5-skin-fluentdark-git >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}fcitx5-skin-fluentdark-git is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}fcitx5-skin-fluentdark-git is install${COLOR_NC}"
-	trizen -S fcitx5-skin-fluentdark-git --noconfirm
-fi
-if pacman -Qi adwaita-qt5 >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}adwaita-qt5 is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}adwaita-qt5 is not install"
-	trizen -S adwaita-qt5 --noconfirm
-fi
-if pacman -Qi adwaita-qt6 >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}adwaita-qt6 is installed"
-else
-	echo -e "${COLOR_YELLOW}adwaita-qt6 is not install"
-	trizen -S adwaita-qt6 --noconfirm
-fi
 if pacman -Qi ranger >/dev/null 2>&1; then
 	echo -e "${COLOR_GREEN}ranger is intalled${COLOR_NC}"
 else
@@ -146,22 +99,4 @@ else
 	pip3 install setuptools
 	trizen -S ranger-git --noconfirm
 fi
-cp -r config/ranger ${HOME}/.config
-if pacman -Qi flameshot-git >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}flameshot-git is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}flameshot-git is not install"
-	trizen -S flameshot-git --noconfirm
-fi
-if pacman -Qi grim >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}grim is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}grim is not install${COLOR_NC}"
-	sudo pacman -S grim --noconfirm
-fi
-if pacman -Qi code >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}code is installend${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}code is not install${COLOR_NC}"
-	sudo pacman -S code --noconfirm
-fi
+cp -r config/ranger "${HOME}"/.config
