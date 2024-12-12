@@ -73,7 +73,7 @@ if [ -e "${HOME}/.vimrc" ]; then
 	echo -e "${COLOR_GREEN}${HOME}/.vimrc is exists${COLOR_NC}"
 else
 	echo -e "${COLOR_GREEN}${HOME}/.vimrc is not exists${COLOR_NC}"
-	cp .res/vimrc/vimrc "${HOME}"/.vimrc
+	cp ./res/vimrc/vimrc "${HOME}"/.vimrc
 fi
 
 if pacman -Qi wget >/dev/null 2>&1; then
@@ -166,6 +166,12 @@ else
 	echo -e "${COLOR_YELLOW}zsh is not install${COLOR_NC}"
 	pacman -S zsh --noconfirm
 fi
+if pacman -Qi sudo >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}sudo is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}sudo is not install${COLOR_NC}"
+	pacman -S sudo --noconfirm
+fi
 
 if [ -e /etc/localtime ]; then
 	echo -e "${COLOR_GREEN}/etc/localtime is exists${COLOR_NC}"
@@ -184,3 +190,28 @@ if [ -f "$locale_file" ]; then
 else
 	echo -e "${COLOR_RED}Error:file $locale_file is not exists.${COLOR_NC}"
 fi
+locale-gen
+echo LANG=en_US.UTF-8 >/etc/locale.conf
+
+echo -e "${COLOR_GREEN}Plase input hostname:${COLOR_NC}"
+read -r HOST_NAME
+echo "${HOST_NAME}"
+
+cat "${HOST_NAME}" >>/etc/hostname
+
+cat <<EOF >/etc/hosts
+127.0.0.1       localhost
+::1             localhost
+127.0.1.1       ${HOSTNAME}.localdomain ${HOSTNAME}
+EOF
+
+systemctl enable NetworkManager.service
+echo -e "${COLOR_GREEN}Input root password${COLOR_NC}"
+passwd
+echo -e "${COLOR_GREEN}Plase input username:${COLOR_NC}"
+read -r USER_NAME
+useradd --create-home --groups wheel,root --shell /bin/zsh "${USER_NAME}"
+echo -e "${COLOR_GREEN}Input ${USER_NAME} password${COLOR_NC}"
+passwd "${USER_NAME}"
+
+sed -i 's/# *\(%wheel.*NOPASSWD: ALL\)/\1/' /etc/sudoers
