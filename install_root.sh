@@ -82,14 +82,29 @@ else
 	echo -e "${COLOR_YELLOW}wget is not install${COLOR_NC}"
 	pacman -S wget --noconfirm
 fi
+if pacman -Qi linux-headers >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}linux-headers is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}linux-headers is not install${COLOR_NC}"
+	pacman -S linux-headers --noconfirm
+fi
 
-pacman -S linux-headers --noconfirm
 if [ ${CPU} = "Intel" ]; then
 	echo -e "${COLOR_GREEN}Install intel-ucode${COLOR_NC}"
-	pacman -S intel-ucode --noconfirm
+	if pacman -Qi intel-ucode >/dev/null 2>&1; then
+		echo -e "${COLOR_GREEN}intel-ucode is installed${COLOR_NC}"
+	else
+		echo -e "${COLOR_YELLOW}intel-ucode is not install${COLOR_NC}"
+		pacman -S intel-ucode --noconfirm
+	fi
 else
 	echo -e "${COLOR_GREEN}Install amd-ucode${COLOR_NC}"
-	pacman -S amd-ucode --noconfirm
+	if pacman -Qi amd-ucode >/dev/null 2>&1; then
+		echo -e "${COLOR_GREEN}amd-ucode is installed${COLOR_NC}"
+	else
+		echo -e "${COLOR_YELLOW}amd-ucode is not install${COLOR_NC}"
+		pacman -S amd-ucode --noconfirm
+	fi
 fi
 if pacman -Qi tree >/dev/null 2>&1; then
 	echo -e "${COLOR_GREEN}tree is installed${COLOR_NC}"
