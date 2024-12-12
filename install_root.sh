@@ -173,3 +173,14 @@ else
 	echo -e "${COLOR_YELLOW}/etc/localtime is not exists${COLOR_NC}"
 	ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 fi
+hwclock --systohc
+locale_file="/etc/locale.gen"
+# check locale file
+if [ -f "$locale_file" ]; then
+	# 使用 sed 移除前面的注释符号
+	sed -i 's/# *\(en_US.UTF-8 UTF-8\)/\1/' "$locale_file"
+	sed -i 's/# *\(zh_CN.UTF-8 UTF-8\)/\1/' "$locale_file"
+	echo "Success update /etc/locale.gen"
+else
+	echo -e "${COLOR_RED}Error:file $locale_file is not exists.${COLOR_NC}"
+fi
