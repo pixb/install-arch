@@ -219,3 +219,32 @@ else
 fi
 
 sed -i 's/# *\(%wheel.*NOPASSWD: ALL\)/\1/' /etc/sudoers
+
+if pacman -Qi grub >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}grub is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}grub is not install${COLOR_NC}"
+	pacman -S grub --noconfirm
+fi
+
+if pacman -Qi efibootmgr >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}efibootmgr is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}efibootmgr is not install${COLOR_NC}"
+	pacman -S efibootmgr --noconfirm
+fi
+
+if pacman -Qi os-prober >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}os-prober is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}os-prober is not install${COLOR_NC}"
+	pacman -S os-prober --noconfirm
+fi
+
+if [ ! -d /boot/grub ]; then
+	mkdir -p /boot/grub
+fi
+
+grub-mkconfig >/boot/grub/grub.cfg
+
+grub-install --target="$(uname -m)"-efi --efi-directory=/boot
