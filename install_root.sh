@@ -91,12 +91,70 @@ else
 	echo -e "${COLOR_GREEN}Install amd-ucode${COLOR_NC}"
 	pacman -S amd-ucode --noconfirm
 fi
-pacman -S tree --noconfirm
-pacman -S man --noconfirm
-pacman -S linux-lts --noconfirm
-pacman -S linux-lts-headers --noconfirm
-pacman -S neovim --noconfirm
-pacman -S networkmanager --noconfirm
-pacman -S net-tools --noconfirm
-pacman -S wpa_supplicant --noconfirm
-pacman -S zsh --noconfirm
+if pacman -Qi tree >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}tree is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}tree is not install${COLOR_NC}"
+	pacman -S tree --noconfirm
+fi
+if pacman -Qi man >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}man is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}man is not install${COLOR_NC}"
+	pacman -S man --noconfirm
+fi
+if pacman -Qi man >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}man is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}man is not install${COLOR_NC}"
+	pacman -S man --noconfirm
+fi
+if pacman -Qi linux-lts >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}linux-lts is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}linux-lts is not install${COLOR_NC}"
+	pacman -S linux-lts --noconfirm
+fi
+if pacman -Qi linux-lts-headers >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}linux-lts-headers is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}linux-lts-headers is not install${COLOR_NC}"
+	pacman -S linux-lts-headers --noconfirm
+fi
+if pacman -Qi neovim >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}neovim is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}neovim is not install${COLOR_NC}"
+	pacman -S neovim --noconfirm
+fi
+if pacman -Qi networkmanager >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}networkmanager is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}networkmanager is not install${COLOR_NC}"
+	pacman -S networkmanager --noconfirm
+fi
+if pacman -Qi net-tools >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}net-tools is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}net-tools is not install${COLOR_NC}"
+	pacman -S net-tools --noconfirm
+fi
+if pacman -Qi wpa_supplicant >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}wpa_supplicant is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}wpa_supplicant is not install${COLOR_NC}"
+	pacman -S wpa_supplicant --noconfirm
+fi
+if pacman -Qi zsh >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}zsh is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}zsh is not install${COLOR_NC}"
+	pacman -S zsh --noconfirm
+fi
+
+if [ -e /etc/localtime ]; then
+	echo -e "${COLOR_GREEN}/etc/localtime is exists${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}/etc/localtime is not exists${COLOR_NC}"
+	ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+fi
