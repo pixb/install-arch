@@ -197,7 +197,7 @@ echo -e "${COLOR_GREEN}Plase input hostname:${COLOR_NC}"
 read -r HOST_NAME
 echo "${HOST_NAME}"
 
-cat "${HOST_NAME}" >>/etc/hostname
+echo "${HOST_NAME}" >>/etc/hostname
 
 cat <<EOF >/etc/hosts
 127.0.0.1       localhost
