@@ -3,34 +3,24 @@ COLOR_GREEN='\033[0;32m'
 COLOR_RED='\033[0;31m'
 COLOR_YELLOW='\033[0;33m'
 COLOR_NC='\033[0m'
-sudo pacman-key --init
-sudo pacman-key --populate archlinux
-if pacman -Qi base-devel >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}base-devel is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}base-devel is not install${COLOR_NC}"
-	sudo pacman -S base-devel --noconfirm
-fi
 
-if pacman -Qi binutils >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}binutils is installed${COLOR_NC}"
+if [ -d "${HOME}/dev" ]; then
+	echo -e "${COLOR_GREEN}${HOME}/dev is exists${COLOR_NC}"
 else
-	echo -e "${COLOR_YELLOW}binutils is not install${COLOR_NC}"
-	sudo pacman -S binutils --noconfirm
+	echo -e "${COLOR_YELLOW}${HOME}/dev is not exists${COLOR_NC}"
+	mkdir -p "${HOME}/dev"
 fi
-
-if pacman -Qi debugedit >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}debugedit is installed${COLOR_NC}"
+if [ -d "${HOME}/dev/vimrc" ]; then
+	echo -e "${COLOR_GREEN}echo vimrc is exists${COLOR_NC}"
 else
-	echo -e "${COLOR_YELLOW}debugedit is not install${COLOR_NC}"
-	sudo pacman -S debugedit --noconfirm
-fi
-
-if pacman -Qi git >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}git is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}git is not install${COLOR_NC}"
-	sudo pacman -S git --noconfirm
+	echo -e "${COLOR_YELLOW}echo vimrc is not exists${COLOR_NC}"
+	git clone https://github.com/pixb/vimrc.git "${HOME}/dev/vimrc"
+	if [ -e "${HOME}/.vimrc" ]; then
+		echo -e "${COLOR_GREEN}${HOME}/.vimrc is exists${COLOR_NC}"
+	else
+		echo -e "${COLOR_GREEN}${HOME}/.vimrc is not exists${COLOR_NC}"
+		ln -sf "${HOME}/dev/vimrc" "${HOME}"/.vimrc
+	fi
 fi
 
 if pacman -Qi neovim >/dev/null 2>&1; then
@@ -40,61 +30,18 @@ else
 	sudo pacman -S neovim --noconfirm
 fi
 
-if command -v waybar >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}waybar is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}waybar is not installed${COLOR_NC}"
-	sudo pacman -S waybar --noconfirm
-fi
-
-if command -v obsidian >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}bsidian is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}obsidian is not install${COLOR_NC}"
-	sudo pacman -S obsidian --noconfirm
-fi
-if command -v google-chrome-stable >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}oogle-chrome-stable is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}google-chrome-stable is not install${COLOR_NC}"
-	trizen -S google-chrome --noconfirm
-fi
-
-if command -v kate >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}kate is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}kate is not install${COLOR_NC}"
-	sudo pacman -S kate --noconfirm
-fi
 if command -v ssh >/dev/null 2>&1; then
 	echo -e "${COLOR_GREEN}openssh is installed${COLOR_NC}"
 else
 	echo -e "${COLOR_YELLOW}openssh is not install${COLOR_NC}"
 	sudo pacman -S openssh --noconfirm
 fi
-if pacman -Qi otf-font-awesome >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}otf-font-awesome is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}otf-font-awesome is not install${COLOR_NC}"
-	sudo pacman -S otf-font-awesome --noconfirm
-fi
-if pacman -Qi ttf-arimo-nerd >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}ttf-arimo-nerd is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}ttf-arimo-nerd is not install${COLOR_NC}"
-	sudo pacman -S ttf-arimo-nerd --noconfirm
-fi
-if pacman -Qi noto-fonts >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}noto-fonts is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}noto-fonts is not install${COLOR_NC}"
-	sudo pacman -S noto-fonts --noconfirm
-fi
-if [ -d ${HOME}/.pyenv ]; then
+
+if [ -d "${HOME}"/.pyenv ]; then
 	echo -e "${COLOR_GREEN}pyenv is installed${COLOR_NC}"
 else
 	echo -e "${COLOR_YELLOW}pyenv is not install${COLOR_NC}"
-	git clone https://github.com/pyenv/pyenv.git ${HOME}/.pyenv
+	git clone https://github.com/pyenv/pyenv.git "${HOME}"/.pyenv
 	export PATH=$HOME/.pyenv/bin:$PATH
 	eval "$(pyenv init -)"
 fi
@@ -137,37 +84,6 @@ if pacman -Qi go >/dev/null 2>&1; then
 else
 	echo -e "${COLOR_YELLOW}go is not install${COLOR_NC}"
 	sudo pacman -S go --noconfirm
-fi
-sudo usermod -aG input $USER
-cp -r config/hypr ${HOME}/.config/hypr
-cp -r config/foot ${HOME}/.config/foot
-if pacman -Qi wmenu >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}wmenu is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}wmenu is not install${COLOR_NC}"
-	sudo pacman -S wmenu --noconfirm
-fi
-if [ -f /usr/share/fonts/TTF/BlexMonoNerdFontMono-Text.ttf ]; then
-	echo -e "${COLOR_GREEN}BlexMono Nerd Font is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}BlexMono Nerd Font is not install${COLOR_NC}"
-	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/IBMPlexMono.zip
-	unzip IBMPlexMono.zip -d IBMPlexMono
-	sudo mv IBMPlexMono/*.ttf /usr/share/fonts/TTF
-	fc-cache -fv
-	rm -rf IBMPlexMono*
-fi
-if pacman -Qi dolphin >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}dolphin is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}dolphin is not install${COLOR_NC}"
-	sudo pacman -S dolphin --noconfirm
-fi
-if pacman -Qi xorg-xlsclients >/dev/null 2>&1; then
-	echo -e "${COLOR_GREEN}xorg-xlsclients is installed${COLOR_NC}"
-else
-	echo -e "${COLOR_YELLOW}xorg-xlsclients is not install${COLOR_NC}"
-	sudo pacman -S xorg-xlsclients --noconfirm
 fi
 if pacman -Qi ripgrep >/dev/null 2>&1; then
 	echo -e "${COLOR_GREEN}ripgrep is installed${COLOR_NC}"
