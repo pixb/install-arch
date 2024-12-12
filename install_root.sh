@@ -32,6 +32,18 @@ else
 	echo -e "${COLOR_YELLOW}git is not install${COLOR_NC}"
 	pacman -S git --noconfirm
 fi
+if pacman -Qi zip >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}zip is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}zip is not install${COLOR_NC}"
+	pacman -S zip --noconfirm
+fi
+if pacman -Qi unzip >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}unzip is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}unzip is not install${COLOR_NC}"
+	pacman -S unzip --noconfirm
+fi
 
 if [ -d res/vimrc ]; then
 	echo -e "${COLOR_GREEN}echo ./res/vimrc is exists${COLOR_NC}"

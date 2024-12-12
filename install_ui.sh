@@ -71,7 +71,8 @@ else
 	fi
 	if [ -f ./res/Monaspace.zip ]; then
 		unzip ./res/Monaspace.zip -d ./res/Monaspace
-		sudo mv ./res/Monaspace/*.{ttf,otf} /usr/share/fonts/TTF
+		sudo mv ./res/Monaspace/*.otf /usr/share/fonts/OTF
+		sudo mv ./res/Monaspace/*.ttf /usr/share/fonts/TTF
 		fc-cache -fv
 	fi
 fi
