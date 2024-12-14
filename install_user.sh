@@ -122,6 +122,22 @@ else
 	trizen -S ranger-git --noconfirm
 fi
 cp -r config/ranger "${HOME}"/.config
+
+if [ -d "${HOME}"/dev/linux-demo ]; then
+	echo -e "${COLOR_GREEN}${HOME}/dev/linux-demo is exist${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}clone linux-demo${COLOR_NC}"
+	git clone git@github.com:pixb/linux-demo.git "${HOME}"/dev/linux-demo
+fi
+
+export EDITOR=vim
+if pacman -Qi rcm >/dev/null 2>&1; then
+	echo -e "${COLOR_GREEN}rcm is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}rcm is not install${COLOR_NC}"
+	trizen -S rcm --noconfirm
+fi
+
 if [ -d "${HOME}"/.dotfiles ]; then
 	echo -e "${COLOR_GREEN}${HOME}/.dotfiles is exist${COLOR_NC}"
 	cd "${HOME}" || exit
