@@ -177,3 +177,56 @@ else
   echo -e "${COLOR_YELLOW}fastfetch is not install${COLOR_NC}"
   trizen -S fastfetch --noconfirm
 fi
+
+if pacman -Qi gdb &>/dev/null; then
+  echo -e "${COLOR_GREEN}gdb is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}gdb is not install${COLOR_NC}"
+  sudo pacman -S gdb --noconfirm
+fi
+
+if pacman -Qi gcc &>/dev/null; then
+  echo -e "${COLOR_GREEN}gcc is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}gcc is not install${COLOR_NC}"
+  sudo pacman -S gcc --noconfirm
+fi
+
+if pacman -Qi cmake &>/dev/null; then
+  echo -e "${COLOR_GREEN}cmake is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}cmake is not install${COLOR_NC}"
+  sudo pacman -S cmake --noconfirm
+fi
+
+if pacman -Qi meson &>/dev/null; then
+  echo -e "${COLOR_GREEN}meson is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}meson is not install${COLOR_NC}"
+  sudo pacman -S meson --noconfirm
+fi
+
+if [ ! -d $HOME/.tmux ]; then
+  bash $HOME/dev/install-arch/tmux/config_tmux.sh
+fi
+
+if pacman -Qi htop &>/dev/null; then
+  echo -e "${COLOR_GREEN}htop is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}htop is not install${COLOR_NC}"
+  sudo pacman -S htop --noconfirm
+fi
+
+if pacman -Qi btop &>/dev/null; then
+  echo -e "${COLOR_GREEN}btop is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}btop is not install${COLOR_NC}"
+  sudo pacman -S btop --noconfirm
+fi
+
+if pacman -Qi duf &>/dev/null; then
+  echo -e "${COLOR_GREEN}duf is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}duf is not install${COLOR_NC}"
+  sudo pacman -S duf --noconfirm
+fi
