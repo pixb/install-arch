@@ -125,6 +125,11 @@ else
 	pip3 install setuptools
 	trizen -S ranger-git --noconfirm
 fi
+
+if [ ! -d "${HOME}/.config" ]; then
+	mkdir -p "${HOME}/.config"
+fi
+
 cp -r config/ranger "${HOME}"/.config
 
 if [ -d "${HOME}"/dev/linux-demo ]; then
@@ -153,4 +158,8 @@ else
 	cd "${HOME}" || exit
 	rcup -t rcm
 	rcup
+fi
+
+if [ ! -d "${HOME}/.config/nvim" ]; then
+	git clone https://github.com/pixb/nvimlua.git ~/.config/nvim
 fi
