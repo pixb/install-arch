@@ -52,6 +52,8 @@ fi
 
 if command -v ssh >/dev/null 2>&1; then
 	echo -e "${COLOR_GREEN}openssh is installed${COLOR_NC}"
+	sudo systemctl enable sshd.service
+	sudo systemctl start sshd.service
 else
 	echo -e "${COLOR_YELLOW}openssh is not install${COLOR_NC}"
 	sudo pacman -S openssh --noconfirm
