@@ -122,3 +122,15 @@ else
 	trizen -S ranger-git --noconfirm
 fi
 cp -r config/ranger "${HOME}"/.config
+if [ -d "${HOME}"/.dotfiles ]; then
+	echo -e "${COLOR_GREEN}${HOME}/.dotfiles is exist${COLOR_NC}"
+	cd "${HOME}" || exit
+	rcup -t rcm
+	rcup
+else
+	echo -e "${COLOR_YELLOW}clone .dotfiles${COLOR_NC}"
+	git clone https://github.com/pixb/.dotfiles "${HOME}"/.dotfiles
+	cd "${HOME}" || exit
+	rcup -t rcm
+	rcup
+fi

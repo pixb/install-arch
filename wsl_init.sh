@@ -92,15 +92,15 @@ else
 	trizen -S rcm --noconfirm
 fi
 
-if [ -d ${HOME}/.dotfiles ]; then
+if [ -d "${HOME}"/.dotfiles ]; then
 	echo -e "${COLOR_GREEN}${HOME}/.dotfiles is exist${COLOR_NC}"
-	cd ${HOME}
+	cd "${HOME}" || exit
 	rcup -t rcm
 	rcup
 else
 	echo -e "${COLOR_YELLOW}clone .dotfiles${COLOR_NC}"
-	git clone https://github.com/pixb/.dotfiles ${HOME}/.dotfiles
-	cd ${HOME}
+	git clone https://github.com/pixb/.dotfiles "${HOME}"/.dotfiles
+	cd "${HOME}" || exit
 	rcup -t rcm
 	rcup
 fi
