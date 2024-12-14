@@ -48,6 +48,8 @@ fi
 
 if [ -d "${HOME}"/.pyenv ]; then
 	echo -e "${COLOR_GREEN}pyenv is installed${COLOR_NC}"
+	export PATH=$HOME/.pyenv/bin:$PATH
+	eval "$(pyenv init -)"
 else
 	echo -e "${COLOR_YELLOW}pyenv is not install${COLOR_NC}"
 	git clone https://github.com/pyenv/pyenv.git "${HOME}"/.pyenv
