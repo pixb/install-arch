@@ -4,6 +4,14 @@ COLOR_RED='\033[0;31m'
 COLOR_YELLOW='\033[0;33m'
 COLOR_NC='\033[0m'
 
+# proxy
+http_proxy=http://192.168.123.187:10809
+https_proxy=http://192.168.123.187:10809
+ftp_proxy=http://192.168.123.187:10809
+export http_proxy
+export ftp_proxy
+export https_proxy
+
 if [ -d "${HOME}/dev" ]; then
 	echo -e "${COLOR_GREEN}${HOME}/dev is exists${COLOR_NC}"
 else

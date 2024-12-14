@@ -66,19 +66,19 @@ fi
 if command -v trizen &>/dev/null; then
 	echo -e "${COLOR_GREEN}trizen is installed.${COLOR_NC}"
 else
-	git clone https://aur.archlinux.org/trizen.git ${HOME}/Downloads/trizen
-	cd ${HOME}/Downloads/trizen
+	git clone https://aur.archlinux.org/trizen.git "${HOME}"/Downloads/trizen
+	cd "${HOME}"/Downloads/trizen || exit
 	makepkg -si
 fi
 
-if [ -d ${HOME}/dev ]; then
+if [ -d "${HOME}"/dev ]; then
 	echo -e "${COLOR_GREEN}${HOME}/dev is exist.${COLOR_NC}"
 else
 	echo -e "${COLOR_YELLOW}Create ${HOME}/dev path${COLOR_NC}"
-	mkdir -p ${HOME}/dev
+	mkdir -p "${HOME}"/dev
 fi
 
-if [ -d ${HOME}/dev/linux-demo ]; then
+if [ -d "${HOME}"/dev/linux-demo ]; then
 	echo -e "${COLOR_GREEN}${HOME}/dev/linux-demo is exist${COLOR_NC}"
 else
 	echo -e "${COLOR_YELLOW}clone linux-demo${COLOR_NC}"
