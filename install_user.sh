@@ -18,6 +18,17 @@ else
 	echo -e "${COLOR_YELLOW}${HOME}/dev is not exists${COLOR_NC}"
 	mkdir -p "${HOME}/dev"
 fi
+# install trizen
+if command -v trizen &>/dev/null; then
+	echo -e "${COLOR_GREEN}trizen is installed.${COLOR_NC}"
+else
+	if [ ! -d "${HOME}"/Downloads ]; then
+		mkdir -p "${HOME}"/Downloads
+	fi
+	git clone https://aur.archlinux.org/trizen.git "${HOME}"/Downloads/trizen
+	cd "${HOME}"/Downloads/trizen || exit
+	makepkg -si
+fi
 if [ -d "${HOME}/dev/vimrc" ]; then
 	echo -e "${COLOR_GREEN}echo vimrc is exists${COLOR_NC}"
 else
@@ -102,6 +113,7 @@ else
 	echo -e "${COLOR_YELLOW}ripgrep is not install${COLOR_NC}"
 	sudo pacman -S ripgrep --noconfirm
 fi
+
 if pacman -Qi ranger >/dev/null 2>&1; then
 	echo -e "${COLOR_GREEN}ranger is intalled${COLOR_NC}"
 else
