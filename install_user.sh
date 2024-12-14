@@ -55,6 +55,8 @@ if command -v ssh >/dev/null 2>&1; then
 else
 	echo -e "${COLOR_YELLOW}openssh is not install${COLOR_NC}"
 	sudo pacman -S openssh --noconfirm
+	sudo systemctl enable sshd.service
+	sudo systemctl start sshd.service
 fi
 
 if [ -d "${HOME}"/.pyenv ]; then
