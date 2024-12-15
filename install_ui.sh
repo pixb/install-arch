@@ -65,9 +65,12 @@ else
 fi
 
 sudo usermod -aG input "$USER"
-cp -r config/hypr "${HOME}"/.config
-cp -r config/foot "${HOME}"/.config
-cp -r config/waybar $HOME/.config
+rm -rf $HOME/.config/hypr
+ln -sf $HOME/dev/install-arch/config/hypr "${HOME}"/.config/hypr
+rm -rf $HOME/.config/foot
+ln -sf $HOME/dev/install-arch/config/foot "${HOME}"/.config/foot
+rm -rf $HOME/.config/waybar
+ln -sf $HOME/dev/install-arch/config/waybar $HOME/.config/waybar
 if pacman -Qi wmenu >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}wmenu is installed${COLOR_NC}"
 else
@@ -189,7 +192,9 @@ fi
 sudo systemctl enable greetd
 sudo systemctl start greetd
 sudo usermod -aG video greeter
-sudo cp /etc/greetd/config.toml /etc/greetd/config.toml.ori
+if [ ! -e /etc/greetd/config.toml.ori ]; then
+  sudo cp /etc/greetd/config.toml /etc/greetd/config.toml.ori
+fi
 sudo sed -i 's/^command.*/command = "Hyprland"/p' /etc/greetd/config.toml
 sudo sed -i 's/^user.*/user = "pix"/p' /etc/greetd/config.toml
 
@@ -206,5 +211,5 @@ else
   echo -e "${COLOR_YELLOW}wlogout is not install"
   trizen -S wlogout --noconfirm
 fi
-
-cp -r $HOME/dev/install-arch/config/fcitx5 $HOME/.config
+rm -rf $HOME/.config/fcitx5
+ln -sf $HOME/dev/install-arch/config/fcitx5 $HOME/.config/fcitx5
