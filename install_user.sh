@@ -4,6 +4,13 @@ COLOR_RED='\033[0;31m'
 COLOR_YELLOW='\033[0;33m'
 COLOR_NC='\033[0m'
 
+if [ -e $HOME/.sdkman/bin/sdkman-init.sh ]; then
+  echo -e "${COLOR_GREEN}sdkman is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}sdkman not init, init...${COLOR_NC}"
+  curl -s "https://get.sdkman.io" | bash
+fi
+
 # proxy
 http_proxy=http://192.168.123.187:10809
 https_proxy=http://192.168.123.187:10809
