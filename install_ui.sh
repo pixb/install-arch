@@ -50,6 +50,20 @@ else
   sudo pacman -S noto-fonts --noconfirm
 fi
 
+if pacman -Qi noto-fonts-cjk >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}noto-fonts-cjk is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}noto-fonts-cjk is not install${COLOR_NC}"
+  sudo pacman -S noto-fonts-cjk --noconfirm
+fi
+
+if pacman -Qi noto-fonts-emoji >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}noto-fonts-emoji is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}noto-fonts-emoji is not install${COLOR_NC}"
+  sudo pacman -S noto-fonts-emoji --noconfirm
+fi
+
 sudo usermod -aG input "$USER"
 cp -r config/hypr "${HOME}"/.config
 cp -r config/foot "${HOME}"/.config
@@ -185,3 +199,12 @@ else
   echo -e "${COLOR_YELLOW}foot is not install"
   trizen -S foot --noconfirm
 fi
+
+if pacman -Qi wlogout &>/dev/null; then
+  echo -e "${COLOR_GREEN}wlogout is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}wlogout is not install"
+  trizen -S wlogout --noconfirm
+fi
+
+cp -r $HOME/dev/install-arch/config/fcitx5 $HOME/.config
