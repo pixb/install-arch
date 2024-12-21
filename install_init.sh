@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #!/bin/env bash
 COLOR_GREEN='\033[0;32m'
 COLOR_RED='\033[0;31m'
@@ -14,7 +13,5 @@ else
   systemctl enable sshd
   systemctl start sshd
 fi
-=======
 pacstrap -i /mnt/ base linux linux-firmware
 genfstab -U /mnt >>/mnt/etc/fstab
->>>>>>> 53904fd1b6ad366da72be5575d7fd250930c3c43

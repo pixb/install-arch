@@ -3,8 +3,6 @@ COLOR_GREEN='\033[0;32m'
 COLOR_RED='\033[0;31m'
 COLOR_YELLOW='\033[0;33m'
 COLOR_NC='\033[0m'
-<<<<<<< HEAD
-=======
 
 if command -v waybar >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}waybar is installed${COLOR_NC}"
@@ -213,6 +211,20 @@ else
   echo -e "${COLOR_YELLOW}wlogout is not install"
   trizen -S wlogout --noconfirm
 fi
+
 rm -rf $HOME/.config/fcitx5
 ln -sf $HOME/dev/install-arch/config/fcitx5 $HOME/.config/fcitx5
->>>>>>> 53904fd1b6ad366da72be5575d7fd250930c3c43
+
+if pacman -Qi xdg-desktop-portal-hyprland &>/dev/null; then
+  echo -e "${COLOR_GREEN}xdg-desktop-portal-hyprland is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}xdg-desktop-portal-hyprland is not install"
+  trizen -S xdg-desktop-portal-hyprland --noconfirm
+fi
+
+if pacman -Qi xorg-xrdb &>/dev/null; then
+  echo -e "${COLOR_GREEN}xorg-xrdb is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}xorg-xrdb is not install"
+  trizen -S xorg-xrdb --noconfirm
+fi

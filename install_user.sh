@@ -6,9 +6,22 @@ COLOR_NC='\033[0m'
 
 if [ -e $HOME/.sdkman/bin/sdkman-init.sh ]; then
   echo -e "${COLOR_GREEN}sdkman is installed${COLOR_NC}"
+  source "$HOME/.sdkman/bin/sdkman-init.sh"
 else
   echo -e "${COLOR_YELLOW}sdkman not init, init...${COLOR_NC}"
   curl -s "https://get.sdkman.io" | bash
+fi
+
+if command -v java &>/dev/null; then
+  echo -e "${COLOR_GREEN}java is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}java is not install${COLOR_NC}"
+  if command -v sdk &>/dev/null; then
+    echo -e "${COLOR_GREEN}sdkman is installed${COLOR_GREEN}"
+    sdk install java 11.0.23-tem
+  else
+    echo -e "${COLOR_YELLOW}sdknam is not install${COLOR_NC}"
+  fi
 fi
 
 # proxy
@@ -236,4 +249,19 @@ if pacman -Qi duf &>/dev/null; then
 else
   echo -e "${COLOR_YELLOW}duf is not install${COLOR_NC}"
   sudo pacman -S duf --noconfirm
+fi
+
+if command -v bc &>/dev/null; then
+  echo -e "${COLOR_GREEN}bc is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}bc is not install${COLOR_NC}"
+  sudo pacman -S bc --noconfirm
+fi
+
+if command -v pkgfile &>/dev/null; then
+  echo -e "${COLOR_GREEN}pkgfile is installed${COLOR_NC}"
+  sudo pkgfile --update
+else
+  echo -e "${COLOR_YELLOW}pkgfile is not install${COLOR_NC}"
+  sudo pacman -S pkgfile --noconfirm
 fi
