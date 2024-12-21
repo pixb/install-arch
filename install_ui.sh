@@ -228,3 +228,10 @@ else
   echo -e "${COLOR_YELLOW}xorg-xrdb is not install"
   trizen -S xorg-xrdb --noconfirm
 fi
+
+if pacman -Qi hyprland-qtutils &>/dev/null; then
+  echo -e "${COLOR_GREEN}hyprland-qtutils is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}hyprland-qtutils is not install"
+  trizen -S hyprland-qtutils --noconfirm
+fi
