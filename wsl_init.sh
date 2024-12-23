@@ -171,3 +171,4 @@ else
 fi
 
 pacman_install hdparm
+pacman_install fio
