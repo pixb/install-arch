@@ -1,8 +1,26 @@
-#!/bin/bash
+#!/bin/env bash
 COLOR_GREEN='\033[0;32m'
 COLOR_RED='\033[0;31m'
 COLOR_YELLOW='\033[0;33m'
 COLOR_NC='\033[0m'
+
+function pacman_install() {
+	if pacman -Qi "$1" &>/dev/null; then
+		echo -e "${COLOR_GREEN}$1 is installed${COLOR_NC}"
+	else
+		echo -e "${COLOR_YELLOW}$1 is not install${COLOR_NC}"
+		sudo pacman -S "$1" --noconfirm
+	fi
+}
+
+function trizen_install() {
+	if pacman -Qi "$1" &>/dev/null; then
+		echo -e "${COLOR_GREEN}$1 is installed${COLOR_NC}"
+	else
+		echo -e "${COLOR_YELLOW}$1 is not install${COLOR_NC}"
+		trizen -S "$1" --noconfirm
+	fi
+}
 
 # config proxy
 if grep -q "http_proxy" /etc/profile; then
@@ -140,3 +158,16 @@ else
 	# unset http_proxy https_proxy ftp_proxy
 	trizen -S ccat --noconfirm
 fi
+
+if [ ! -d "${HOME}/.tmux" ]; then
+	bash "${HOME}/dev/install-arch/tmux/config_tmux.sh"
+fi
+
+if pacman -Qi duf &>/dev/null; then
+	echo -e "${COLOR_GREEN}duf is installed${COLOR_NC}"
+else
+	echo -e "${COLOR_YELLOW}duf is not install${COLOR_NC}"
+	trizen -S duf --noconfirm
+fi
+
+pacman_install hdparm
