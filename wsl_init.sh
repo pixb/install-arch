@@ -27,14 +27,14 @@ if grep -q "http_proxy" /etc/profile; then
 	echo -e "${COLOR_GREEN}http_proxy is already set.${COLOR_NC}"
 else
 	echo -e "${COLOR_YELLOW}config http_proxy${COLOR_NC}"
-	sudo sh -c 'cat<<EOF>>/etc/profile
-  http_proxy=http://192.168.123.187:10809
-  https_proxy=http://192.168.123.187:10809
-  ftp_proxy=http://192.168.123.187:10809
-  export http_proxy
-  export ftp_proxy
-  export https_proxy
-  EOF'
+#	cat <<EOF >> /etc/profile
+#  http_proxy=http://192.168.123.187:10809
+#  https_proxy=http://192.168.123.187:10809
+#  ftp_proxy=http://192.168.123.187:10809
+#  export http_proxy
+#  export ftp_proxy
+#  export https_proxy
+#  EOF
 fi
 # proxy
 http_proxy=http://192.168.123.187:10809
@@ -172,3 +172,4 @@ fi
 
 pacman_install hdparm
 pacman_install fio
+pacman_install openssh
