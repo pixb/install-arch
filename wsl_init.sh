@@ -184,3 +184,38 @@ else
     echo -e "${COLOR_YELLOW}sdknam is not install${COLOR_NC}"
   fi
 fi
+
+if [ -d "${HOME}"/.pyenv ]; then
+  echo -e "${COLOR_GREEN}pyenv is installed${COLOR_NC}"
+  export PATH=$HOME/.pyenv/bin:$PATH
+  eval "$(pyenv init -)"
+else
+  echo -e "${COLOR_YELLOW}pyenv is not install${COLOR_NC}"
+  git clone https://github.com/pyenv/pyenv.git "${HOME}"/.pyenv
+  export PATH=$HOME/.pyenv/bin:$PATH
+  eval "$(pyenv init -)"
+fi
+if command -v python3 >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}$(python3 --version) is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW} python3 is not install${COLOR_NC}"
+  pyenv install 3.13.0
+  pyenv global 3.13.0
+fi
+
+if [ -d "${HOME}/dev/vimrc" ]; then
+  echo -e "${COLOR_GREEN}echo vimrc is exists${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}echo vimrc is not exists${COLOR_NC}"
+  git clone https://github.com/pixb/vimrc.git "${HOME}/dev/vimrc"
+fi
+
+if [ -e "${HOME}/.vimrc" ]; then
+  echo -e "${COLOR_GREEN}${HOME}/.vimrc is exists${COLOR_NC}"
+else
+  echo -e "${COLOR_GREEN}${HOME}/.vimrc is not exists${COLOR_NC}"
+  ln -sf "${HOME}/dev/vimrc/vimrc" "${HOME}"/.vimrc
+fi
+
+pacman_install btop
+pacman_install htop
