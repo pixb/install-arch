@@ -197,6 +197,14 @@ else
 fi
 if command -v python3 >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}$(python3 --version) is installed${COLOR_NC}"
+  if [ -d "${HOME}/.venv" ]; then
+    echo -e "${COLOR_GREEN}${HOME}/.venv is exists.${COLOR_NC}"
+    source "${HOME}/.venv/bin/activate"
+  else
+    echo -e "${COLOR_YELLOW}${HOME}/.venv is not exists.${COLOR_NC}"
+    python -m venv "${HOME}/.venv"
+    source "${HOME}/.venv/bin/activate"
+  fi
 else
   echo -e "${COLOR_YELLOW} python3 is not install${COLOR_NC}"
   pyenv install 3.13.0
@@ -219,3 +227,15 @@ fi
 
 pacman_install btop
 pacman_install htop
+pacman_install wget
+
+if pacman -Qi ranger >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}ranger is intalled${COLOR_NC}"
+  ln -sf "${HOME}/dev/install-arch/config/ranger" "${HOME}/.config/ranger"
+else
+  echo -e "${COLOR_YELLOW}ranger is not install${COLOR_NC}"
+  pip3 install setuptools
+  trizen -S ranger-git --noconfirm
+fi
+
+pacman_install openbsd-netcat
