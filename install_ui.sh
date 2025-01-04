@@ -35,6 +35,8 @@ pacman_install noto-fonts-emoji
 sudo usermod -aG input "$USER"
 rm -rf "$HOME/.config/hypr"
 ln -sf "$HOME/dev/install-arch/config/hypr" "${HOME}/.config/hypr"
+rm -rf "$HOME/.config/sway"
+ln -sf "$HOME/dev/install-arch/config/sway" "${HOME}/.config/sway"
 rm -rf "$HOME/.config/foot"
 ln -sf "$HOME/dev/install-arch/config/foot" "${HOME}/.config/foot"
 rm -rf "$HOME/.config/waybar"
