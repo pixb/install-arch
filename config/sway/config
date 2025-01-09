@@ -6,6 +6,7 @@
 
 ### Variables
 #
+include /etc/sway/config/*
 # Logo key. Use Mod1 for Alt.Use Mod4 for Win.
 set $mod Mod1
 # Home row direction keys, like vim
@@ -14,9 +15,10 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term foot
+set $term footclient
 # Your preferred application launcher
-set $menu wmenu-run
+set $menu wmenu-run -f "MonaspiceNe Nerd Font Medium 13" -i -N 191919 -S 6f3f89 -s ffffff -M 6f3f89 -m ffffff | xargs swaymsg exec --
+set $wmenu wmenu -f "MonaspiceNe Nerd Font Medium 13" -i -S 6f3f89 -s ffffff -M 6f3f89 -m ffffff
 
 ### Output configuration
 #
@@ -57,6 +59,13 @@ output * mode 1920x1080
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
+#
+
+### Auto start
+exec foot --server
+exec sleep 3 && $term -T "Scratchpad Tmux" tmux
+exec "fcitx5 -d"
+exec "wl-paste --watch cliphist store"
 
 ### Key bindings
 #
@@ -64,12 +73,21 @@ output * mode 1920x1080
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym $mod+Shift+Return exec $term -T "Floating Term"
+    bindsym $mod+Ctrl+Return exec $term -T "Scratchpad Tmux" tmux
+    bindsym $mod+r exec $term ranger
 
     # Kill focused window
     bindsym $mod+Shift+q kill
 
     # Start your launcher
     bindsym $mod+d exec $menu
+    bindsym $mod+c exec 'cliphist list | $wmenu -p "cliphist: " -l 6 | cliphist decode | wl-copy'
+
+    # adjust window gaps
+    bindsym $mod+CONTROL+minus exec "swaymsg gaps inner current minus 2"
+    bindsym $mod+CONTROL+equal exec "swaymsg gaps inner current plus 2"
+
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -194,7 +212,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
+bindsym $mod+Shift+r mode "resize"
 #
 # Utilities:
 #
@@ -218,7 +236,8 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+    # status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+    status_command i3status
 
     colors {
         statusline #ffffff

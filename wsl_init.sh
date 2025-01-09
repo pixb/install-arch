@@ -239,3 +239,4 @@ else
 fi
 
 pacman_install openbsd-netcat
+pacman_install pkgfile
