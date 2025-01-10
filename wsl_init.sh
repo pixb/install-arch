@@ -40,40 +40,11 @@ sudo pacman-key --init
 sudo pacman-key --populate archlinux
 pacman_install zip
 pacman_install unzip
-if pacman -Qi base-devel >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}base-devel is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}base-devel is not install${COLOR_NC}"
-  sudo pacman -S base-devel --noconfirm
-fi
-
-if pacman -Qi git >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}git is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}git is not install${COLOR_NC}"
-  sudo pacman -S git --noconfirm
-fi
-
-if pacman -Qi neovim >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}neovim is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}neovim is not install${COLOR_NC}"
-  sudo pacman -S neovim --noconfirm
-fi
-
-if pacman -Qi binutils >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}binutils is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}binutils is not install${COLOR_NC}"
-  sudo pacman -S binutils --noconfirm
-fi
-
-if pacman -Qi debugedit >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}debugedit is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}debugedit is not install${COLOR_NC}"
-  sudo pacman -S debugedit --noconfirm
-fi
+pacman_install base-devel
+pacman_install git
+pacman_install man
+pacman_install binutils
+pacman_install debugedit
 
 # install trizen
 if command -v trizen &>/dev/null; then
@@ -98,12 +69,7 @@ else
   git clone git@github.com:pixb/linux-demo.git ${HOME}/dev/linux-demo
 fi
 export EDITOR=vim
-if pacman -Qi rcm >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}rcm is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}rcm is not install${COLOR_NC}"
-  trizen -S rcm --noconfirm
-fi
+trizen_install rcm
 
 if [ -d "${HOME}"/.dotfiles ]; then
   echo -e "${COLOR_GREEN}${HOME}/.dotfiles is exist${COLOR_NC}"
@@ -118,34 +84,10 @@ else
   rcup
 fi
 
-if pacman -Qi fzf >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}fzf is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}fzf is not install${COLOR_NC}"
-  sudo pacman -S fzf --noconfirm
-fi
-
-if pacman -Qi the_silver_searcher >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}the_silver_searcher is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}the_silver_searcher is not install${COLOR_NC}"
-  sudo pacman -S the_silver_searcher --noconfirm
-fi
-
-if pacman -Qi nodejs >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}nodejs is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}nodejs is not install${COLOR_NC}"
-  sudo pacman -S nodejs --noconfirm
-fi
-
-if pacman -Qi npm >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}npm is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}npm is not install${COLOR_NC}"
-  sudo pacman -S npm --noconfirm
-fi
-
+pacman_install fzf
+pacman_install the_silver_searcher
+pacman_install nodejs
+pacman_install npm
 trizen_install ccat
 pacman_install tmux
 pacman_install postgresql
@@ -240,3 +182,4 @@ fi
 
 pacman_install openbsd-netcat
 pacman_install pkgfile
+pacman_install man
