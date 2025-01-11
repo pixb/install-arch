@@ -177,7 +177,7 @@ if pacman -Qi ranger >/dev/null 2>&1; then
 else
   echo -e "${COLOR_YELLOW}ranger is not install${COLOR_NC}"
   pip3 install setuptools
-  trizen -S ranger-git --noconfirm
+  sudo pacman -S ranger --noconfirm
 fi
 
 pacman_install openbsd-netcat
