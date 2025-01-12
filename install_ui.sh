@@ -104,4 +104,4 @@ trizen_install hyprland-qtutils
 pacman_install cliphist
 pacman_install wl-clipboard
 pacman_install i3status
-ln -sf "$HOME/dev/install-arch/config/i3status/" "$HOME/.config/i3status/"
+ln -sf "$HOME/dev/install-arch/config/i3status" "$HOME/.config/i3status"
