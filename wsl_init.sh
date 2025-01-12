@@ -88,7 +88,8 @@ pacman_install fzf
 pacman_install the_silver_searcher
 pacman_install nodejs
 pacman_install npm
-trizen_install ccat
+rm -rf /home/pix/.cache/trizen/sources/ccat
+trizen_install ccat-bin
 pacman_install tmux
 pacman_install postgresql
 
@@ -101,6 +102,7 @@ pacman_install hdparm
 pacman_install fio
 pacman_install openssh
 pacman_install ripgrep
+pacman_install neovim
 if [ ! -d "${HOME}/.config/nvim" ]; then
   git clone https://github.com/pixb/nvimlua.git ~/.config/nvim
 fi
@@ -183,3 +185,16 @@ fi
 pacman_install openbsd-netcat
 pacman_install pkgfile
 pacman_install man
+pacman_install docker
+pacman_install docker-compose
+if [ -d /etc/docker ]; then
+  sudo mkdir -p /etc/docker
+fi
+sudo tee -a /etc/docker/daemon.json <<EOF
+{
+  "registry-mirrors": ["https://cf-workers-docker-io-682.pages.dev/"]
+}
+EOF
+sudo systemctl enable docker
+sudo systemctl start docker
+pacman_install lsof
