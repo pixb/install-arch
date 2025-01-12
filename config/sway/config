@@ -19,6 +19,7 @@ set $term footclient
 # Your preferred application launcher
 set $menu wmenu-run -f "MonaspiceNe Nerd Font Medium 13" -i -N 191919 -S 6f3f89 -s ffffff -M 6f3f89 -m ffffff | xargs swaymsg exec --
 set $wmenu wmenu -f "MonaspiceNe Nerd Font Medium 13" -i -S 6f3f89 -s ffffff -M 6f3f89 -m ffffff
+set $screenshot flameshot gui
 
 ### Output configuration
 #
@@ -83,6 +84,8 @@ exec "wl-paste --watch cliphist store"
     # Start your launcher
     bindsym $mod+d exec $menu
     bindsym $mod+c exec 'cliphist list | $wmenu -p "cliphist: " -l 6 | cliphist decode | wl-copy'
+    # shot
+    bindsym $mod+m exec $screenshot
 
     # adjust window gaps
     bindsym $mod+CONTROL+minus exec "swaymsg gaps inner current minus 2"
@@ -225,7 +228,7 @@ bindsym $mod+Shift+r mode "resize"
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
-    bindsym Print exec grim
+    # bindsym Print exec grim
 
 #
 # Status Bar:
