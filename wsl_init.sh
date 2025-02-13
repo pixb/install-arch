@@ -102,6 +102,7 @@ pacman_install hdparm
 pacman_install fio
 pacman_install openssh
 pacman_install ripgrep
+pacman_install yarn
 pacman_install neovim
 if [ ! -d "${HOME}/.config/nvim" ]; then
   git clone https://github.com/pixb/nvimlua.git ~/.config/nvim
