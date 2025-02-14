@@ -5,6 +5,17 @@ COLOR_RED='\033[0;31m'
 COLOR_YELLOW='\033[0;33m'
 COLOR_NC='\033[0m'
 
+if [ -d ${HOME}/.config/nvim ]; then
+  echo -e "${COLOR_GREEN}nvim config exists${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}nvim config exists${COLOR_NC}"
+  git clone https://github.com/LazyVim/starter ~/.config/nvim
+fi
+
+######################################################################################################
+# extras
+######################################################################################################
+
 # 使用EOF将多行文本存储到变量中
 lazyvim_extras=$(
   cat <<'EOF'
@@ -28,16 +39,60 @@ file_path="${HOME}/.config/nvim/lua/config/lazy.lua"
 ls ${file_path}
 
 if grep -q "dap.core" $file_path; then
-  echo -e "${COLOR_GREEN}extras exsists in ${file_path}${COLOR_NC}"
+  echo -e "${COLOR_GREEN}extras exists in ${file_path}${COLOR_NC}"
 else
-  echo -e "${COLOR_YELLOW}extras dont exsists in ${file_path}${COLOR_NC}"
+  echo -e "${COLOR_YELLOW}extras dont exists in ${file_path}${COLOR_NC}"
+  # 输出变量内容到临时文件
+  echo "$lazyvim_extras" >/tmp/lazyvim_extras.txt
+  # 使用sed命令在指定行后插入临时文件的内容
+  sed -i "/{ \"LazyVim\\/LazyVim\", import = \"lazyvim.plugins\" },/ r /tmp/lazyvim_extras.txt" "$file_path"
+  # 删除临时文件（可选）
+  rm /tmp/lazyvim_extras.txt
 fi
 
-# 输出变量内容到临时文件
-# echo "$lazyvim_extras" >/tmp/lazyvim_extras.txt
+######################################################################################################
+# gruvbox
+######################################################################################################
 
-# 使用sed命令在指定行后插入临时文件的内容
-# sed -i "/{ \"LazyVim\\/LazyVim\", import = \"lazyvim.plugins\" },/ r /tmp/lazyvim_extras.txt" "$file_path"
+# 定义要替换的内容
+cat <<'EOF' >>/tmp/nvim_gruvbox.txt
+if true then return {
+  { "ellisonleao/gruvbox.nvim" },
+    {
+      "LazyVim/LazyVim",
+      opts = {
+      colorscheme = "gruvbox",
+    },
+  },
+} end
+EOF
 
-# 删除临时文件（可选）
-# rm /tmp/lazyvim_extras.txt
+example_plugin_file="${HOME}/.config/nvim/lua/plugins/example.lua"
+if grep -q "if true then return {} end" ${example_plugin_file}; then
+  echo -e "${COLOR_YELLOW}not config gruvbox${COLOR_NC}"
+
+  sed -i '/if true then return {} end/{r /tmp/nvim_gruvbox.txt 
+  d}' $example_plugin_file
+  rm /tmp/nvim_gruvbox.txt
+else
+  echo -e "${COLOR_GREEN}config gruvbox is exists${COLOR_NC}"
+fi
+
+######################################################################################################
+# keymap
+######################################################################################################
+keymap_file=${HOME}/.config/nvim/lua/config/keymaps.lua
+if grep -q "jk" ${keymap_file}; then
+  echo -e "${COLOR_GREEN}jk keymap is configure${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}configure jk keymap${COLOR_NC}"
+  cat <<'EOF' >>${keymap_file}
+  local keymap = vim.keymap
+  keymap.set("i", "jk", "<Esc>")
+EOF
+fi
+
+######################################################################################################
+# plugin
+######################################################################################################
+cp ./res/*.lua ${HOME}/.config/nvim/lua/plugins
