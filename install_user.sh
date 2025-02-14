@@ -149,12 +149,8 @@ else
   echo -e "${COLOR_YELLOW}go is not install${COLOR_NC}"
   sudo pacman -S go --noconfirm
 fi
-if pacman -Qi ripgrep >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}ripgrep is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}ripgrep is not install${COLOR_NC}"
-  sudo pacman -S ripgrep --noconfirm
-fi
+
+pacman_install ripgrep --noconfirm
 
 if pacman -Qi ranger >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}ranger is intalled${COLOR_NC}"
