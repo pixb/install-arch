@@ -71,7 +71,7 @@ example_plugin_file="${HOME}/.config/nvim/lua/plugins/example.lua"
 if grep -q "if true then return {} end" ${example_plugin_file}; then
   echo -e "${COLOR_YELLOW}not config gruvbox${COLOR_NC}"
 
-  sed -i '/if true then return {} end/{r /tmp/nvim_gruvbox.txt 
+  sed -i '/if true then return {} end/{r /tmp/nvim_gruvbox.txt
   d}' $example_plugin_file
   rm /tmp/nvim_gruvbox.txt
 else
