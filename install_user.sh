@@ -81,12 +81,7 @@ else
   ln -sf "${HOME}/dev/vimrc/vimrc" "${HOME}"/.vimrc
 fi
 
-if pacman -Qi neovim >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}neovim is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}neovim is not install${COLOR_NC}"
-  sudo pacman -S neovim --noconfirm
-fi
+pacman_install neovim
 
 if command -v ssh >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}openssh is installed${COLOR_NC}"
@@ -116,41 +111,14 @@ else
   pyenv install 3.13.0
   pyenv global 3.13.0
 fi
-if pacman -Qi tk >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}tk is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}tk is not install${COLOR_NC}"
-  sudo pacman -S tk --noconfirm
-fi
-if pacman -Qi fzf >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}fzf is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}fzf is not install${COLOR_NC}"
-  sudo pacman -S fzf --noconfirm
-fi
-
-if pacman -Qi the_silver_searcher >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}the_silver_searcher is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}the_silver_searcher is not install${COLOR_NC}"
-  sudo pacman -S the_silver_searcher --noconfirm
-fi
-
-if pacman -Qi tmux >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}tmux is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}tmux is not install${COLOR_NC}"
-  sudo pacman -S tmux --noconfirm
-fi
-
-if pacman -Qi go >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}go is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}go is not install${COLOR_NC}"
-  sudo pacman -S go --noconfirm
-fi
-
+pacman_install tk
+pacman_install fzf
+pacman_install the_silver_searcher
+pacman_install tmux
+pacman_install go
 pacman_install ripgrep --noconfirm
+pacman_install lazygit
+pacman_install imagemagick
 
 if pacman -Qi ranger >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}ranger is intalled${COLOR_NC}"
@@ -205,57 +173,16 @@ else
   trizen -S fastfetch --noconfirm
 fi
 
-if pacman -Qi gdb &>/dev/null; then
-  echo -e "${COLOR_GREEN}gdb is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}gdb is not install${COLOR_NC}"
-  sudo pacman -S gdb --noconfirm
-fi
-
-if pacman -Qi gcc &>/dev/null; then
-  echo -e "${COLOR_GREEN}gcc is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}gcc is not install${COLOR_NC}"
-  sudo pacman -S gcc --noconfirm
-fi
-
-if pacman -Qi cmake &>/dev/null; then
-  echo -e "${COLOR_GREEN}cmake is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}cmake is not install${COLOR_NC}"
-  sudo pacman -S cmake --noconfirm
-fi
-
-if pacman -Qi meson &>/dev/null; then
-  echo -e "${COLOR_GREEN}meson is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}meson is not install${COLOR_NC}"
-  sudo pacman -S meson --noconfirm
-fi
+pacman_install gdb
+pacman_install gcc
+pacman_install cmake
+pacman_install meson
+pacman_install htop
+pacman_install btop
+pacman_install duf
 
 if [ ! -d $HOME/.tmux ]; then
   bash $HOME/dev/install-arch/tmux/config_tmux.sh
-fi
-
-if pacman -Qi htop &>/dev/null; then
-  echo -e "${COLOR_GREEN}htop is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}htop is not install${COLOR_NC}"
-  sudo pacman -S htop --noconfirm
-fi
-
-if pacman -Qi btop &>/dev/null; then
-  echo -e "${COLOR_GREEN}btop is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}btop is not install${COLOR_NC}"
-  sudo pacman -S btop --noconfirm
-fi
-
-if pacman -Qi duf &>/dev/null; then
-  echo -e "${COLOR_GREEN}duf is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}duf is not install${COLOR_NC}"
-  sudo pacman -S duf --noconfirm
 fi
 
 if command -v bc &>/dev/null; then

@@ -30,12 +30,12 @@ else
   sudo tee -a /etc/profile <"${HOME}/dev/install-arch/proxy.env"
 fi
 # proxy
-http_proxy=http://192.168.123.187:10809
-https_proxy=http://192.168.123.187:10809
-ftp_proxy=http://192.168.123.187:10809
-export http_proxy
-export ftp_proxy
-export https_proxy
+# http_proxy=http://192.168.123.187:10809
+# https_proxy=http://192.168.123.187:10809
+# ftp_proxy=http://192.168.123.187:10809
+# export http_proxy
+# export ftp_proxy
+# export https_proxy
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
 pacman_install zip
@@ -109,6 +109,7 @@ if [ ! -d "${HOME}/.config/nvim" ]; then
 fi
 pacman_install fastfetch
 pacman_install fd
+pacman_install lazygit
 
 if [ -e $HOME/.sdkman/bin/sdkman-init.sh ]; then
   echo -e "${COLOR_GREEN}sdkman is installed${COLOR_NC}"
@@ -174,13 +175,13 @@ pacman_install btop
 pacman_install htop
 pacman_install wget
 
-if pacman -Qi ranger >/dev/null 2>&1; then
+if command -v ranger >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}ranger is intalled${COLOR_NC}"
   ln -sf "${HOME}/dev/install-arch/config/ranger" "${HOME}/.config/ranger"
 else
   echo -e "${COLOR_YELLOW}ranger is not install${COLOR_NC}"
   pip3 install setuptools
-  sudo pacman -S ranger --noconfirm
+  trizen_install ranger-git
 fi
 
 pacman_install openbsd-netcat
@@ -191,11 +192,14 @@ pacman_install docker-compose
 if [ -d /etc/docker ]; then
   sudo mkdir -p /etc/docker
 fi
-sudo tee -a /etc/docker/daemon.json <<EOF
+if ! grep -q cf-workers /etc/docker/daemon.json; then
+  sudo tee -a /etc/docker/daemon.json <<EOF
 {
   "registry-mirrors": ["https://cf-workers-docker-io-682.pages.dev/"]
 }
 EOF
+fi
+
 sudo systemctl enable docker
 sudo systemctl start docker
 pacman_install lsof
