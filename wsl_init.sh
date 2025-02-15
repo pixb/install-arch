@@ -45,6 +45,7 @@ pacman_install git
 pacman_install man
 pacman_install binutils
 pacman_install debugedit
+pacman_install highlight
 
 # install trizen
 if command -v trizen &>/dev/null; then
