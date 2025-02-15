@@ -119,6 +119,7 @@ pacman_install go
 pacman_install ripgrep --noconfirm
 pacman_install lazygit
 pacman_install imagemagick
+pacman_install highlight
 
 if pacman -Qi ranger >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}ranger is intalled${COLOR_NC}"
@@ -166,13 +167,7 @@ if [ ! -d "${HOME}/.config/nvim" ]; then
   git clone https://github.com/pixb/nvimlua.git ~/.config/nvim
 fi
 
-if pacman -Qi fastfetch &>/dev/null; then
-  echo -e "${COLOR_GREEN}fastfetch is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}fastfetch is not install${COLOR_NC}"
-  trizen -S fastfetch --noconfirm
-fi
-
+trizen_install fastfetch
 pacman_install gdb
 pacman_install gcc
 pacman_install cmake
@@ -185,12 +180,7 @@ if [ ! -d $HOME/.tmux ]; then
   bash $HOME/dev/install-arch/tmux/config_tmux.sh
 fi
 
-if command -v bc &>/dev/null; then
-  echo -e "${COLOR_GREEN}bc is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}bc is not install${COLOR_NC}"
-  sudo pacman -S bc --noconfirm
-fi
+pacman_install bc
 
 if command -v pkgfile &>/dev/null; then
   echo -e "${COLOR_GREEN}pkgfile is installed${COLOR_NC}"
