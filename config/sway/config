@@ -63,7 +63,6 @@ output * mode 1920x1080
 #
 
 ### Auto start
-set $DESKTOP_ENN sway
 exec foot --server
 exec sleep 3 && $term -T "Scratchpad Tmux" tmux
 exec "fcitx5 -d"
