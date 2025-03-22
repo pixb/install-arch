@@ -120,6 +120,7 @@ pacman_install ripgrep --noconfirm
 pacman_install lazygit
 pacman_install imagemagick
 pacman_install highlight
+pacman_install p7zip
 
 if pacman -Qi ranger >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}ranger is intalled${COLOR_NC}"

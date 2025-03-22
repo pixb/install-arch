@@ -40,6 +40,7 @@ sudo pacman-key --init
 sudo pacman-key --populate archlinux
 pacman_install zip
 pacman_install unzip
+pacman_install p7zip
 pacman_install base-devel
 pacman_install git
 pacman_install man
