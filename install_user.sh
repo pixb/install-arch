@@ -121,6 +121,7 @@ pacman_install lazygit
 pacman_install imagemagick
 pacman_install highlight
 pacman_install p7zip
+pacman_install rsync
 
 if pacman -Qi ranger >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}ranger is intalled${COLOR_NC}"

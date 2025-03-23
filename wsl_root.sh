@@ -22,6 +22,7 @@ pacman_install vi
 pacman_install sudo
 pacman_install zsh
 pacman_install git
+pacman_install rsync
 
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^# //p' /etc/sudoers
 useradd --create-home --groups wheel,root --shell /bin/zsh pix
