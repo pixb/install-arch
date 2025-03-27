@@ -192,3 +192,19 @@ else
   sudo pacman -S pkgfile --noconfirm
 fi
 pacman_install openbsd-netcat
+
+pacman_install docker
+pacman_install docker-compose
+if [ -d /etc/docker ]; then
+  sudo mkdir -p /etc/docker
+fi
+if ! grep -q cf-workers /etc/docker/daemon.json; then
+  sudo tee -a /etc/docker/daemon.json <<EOF
+{
+  "registry-mirrors": ["https://cf-workers-docker-io-682.pages.dev/"]
+}
+EOF
+fi
+
+sudo systemctl enable docker
+sudo systemctl start docker
