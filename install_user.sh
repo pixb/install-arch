@@ -43,9 +43,9 @@ else
 fi
 
 # proxy
-http_proxy=http://192.168.123.187:10809
-https_proxy=http://192.168.123.187:10809
-ftp_proxy=http://192.168.123.187:10809
+http_proxy=http://192.168.123.88:10809
+https_proxy=http://192.168.123.88:10809
+ftp_proxy=http://192.168.123.88:10809
 export http_proxy
 export ftp_proxy
 export https_proxy
@@ -195,7 +195,7 @@ pacman_install openbsd-netcat
 
 pacman_install docker
 pacman_install docker-compose
-if [ -d /etc/docker ]; then
+if [ ! -d /etc/docker ]; then
   sudo mkdir -p /etc/docker
 fi
 if ! grep -q cf-workers /etc/docker/daemon.json; then
