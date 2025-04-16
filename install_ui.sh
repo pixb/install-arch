@@ -83,14 +83,14 @@ pacman_install sway
 pacman_install swaybg
 trizen_install greetd
 
-sudo systemctl enable greetd
-sudo systemctl start greetd
-sudo usermod -aG video greeter
-if [ ! -e /etc/greetd/config.toml.ori ]; then
-  sudo cp /etc/greetd/config.toml /etc/greetd/config.toml.ori
-fi
-sudo sed -i 's/^command.*/command = "Hyprland"/' /etc/greetd/config.toml
-sudo sed -i 's/^user.*/user = "pix"/' /etc/greetd/config.toml
+# sudo systemctl enable greetd
+# sudo systemctl start greetd
+# sudo usermod -aG video greeter
+# if [ ! -e /etc/greetd/config.toml.ori ]; then
+#   sudo cp /etc/greetd/config.toml /etc/greetd/config.toml.ori
+# fi
+# sudo sed -i 's/^command.*/command = "Hyprland"/' /etc/greetd/config.toml
+# sudo sed -i 's/^user.*/user = "pix"/' /etc/greetd/config.toml
 
 trizen_install foot
 trizen_install wlogout

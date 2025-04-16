@@ -202,7 +202,7 @@ if [ ! -f /etc/hostname ]; then
   127.0.0.1       localhost
   ::1             localhost
   127.0.1.1       ${HOST_NAME}.localdomain ${HOST_NAME}
-  EOF
+EOF
 fi
 
 systemctl enable NetworkManager.service
@@ -244,7 +244,5 @@ fi
 if [ ! -d /boot/grub ]; then
   mkdir -p /boot/grub
 fi
-
-grub-mkconfig >/boot/grub/grub.cfg
-
-grub-install --target="$(uname -m)"-efi --efi-directory=/boot
+grub-install --target="$(uname -m)"-efi --efi-directory=/boot --bootloader-id=Arch
+grub-mkconfig -o /boot/grub/grub.cfg
