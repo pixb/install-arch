@@ -150,7 +150,7 @@ if command -v python3 >/dev/null 2>&1; then
     source "${HOME}/.venv/bin/activate"
   else
     echo -e "${COLOR_YELLOW}${HOME}/.venv is not exists.${COLOR_NC}"
-    python -m venv "${HOME}/.venv"
+    python3 -m venv "${HOME}/.venv"
     source "${HOME}/.venv/bin/activate"
   fi
 else
@@ -158,7 +158,6 @@ else
   pyenv install 3.13.0
   pyenv global 3.13.0
 fi
-
 if [ -d "${HOME}/dev/vimrc" ]; then
   echo -e "${COLOR_GREEN}echo vimrc is exists${COLOR_NC}"
 else
