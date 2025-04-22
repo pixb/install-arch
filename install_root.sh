@@ -124,17 +124,17 @@ else
   echo -e "${COLOR_YELLOW}man is not install${COLOR_NC}"
   pacman -S man --noconfirm
 fi
-if pacman -Qi linux-lts >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}linux-lts is installed${COLOR_NC}"
+if pacman -Qi linux >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}linux is installed${COLOR_NC}"
 else
-  echo -e "${COLOR_YELLOW}linux-lts is not install${COLOR_NC}"
-  pacman -S linux-lts --noconfirm
+  echo -e "${COLOR_YELLOW}linux is not install${COLOR_NC}"
+  pacman -S linux --noconfirm
 fi
-if pacman -Qi linux-lts-headers >/dev/null 2>&1; then
-  echo -e "${COLOR_GREEN}linux-lts-headers is installed${COLOR_NC}"
+if pacman -Qi linux-headers >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}linux-headers is installed${COLOR_NC}"
 else
-  echo -e "${COLOR_YELLOW}linux-lts-headers is not install${COLOR_NC}"
-  pacman -S linux-lts-headers --noconfirm
+  echo -e "${COLOR_YELLOW}linux-headers is not install${COLOR_NC}"
+  pacman -S linux-headers --noconfirm
 fi
 if pacman -Qi neovim >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}neovim is installed${COLOR_NC}"
@@ -202,7 +202,7 @@ if [ ! -f /etc/hostname ]; then
   127.0.0.1       localhost
   ::1             localhost
   127.0.1.1       ${HOST_NAME}.localdomain ${HOST_NAME}
-  EOF
+EOF
 fi
 
 systemctl enable NetworkManager.service
@@ -244,7 +244,5 @@ fi
 if [ ! -d /boot/grub ]; then
   mkdir -p /boot/grub
 fi
-
-grub-mkconfig >/boot/grub/grub.cfg
-
-grub-install --target="$(uname -m)"-efi --efi-directory=/boot
+grub-install --target="$(uname -m)"-efi --efi-directory=/boot --bootloader-id=Arch
+grub-mkconfig -o /boot/grub/grub.cfg

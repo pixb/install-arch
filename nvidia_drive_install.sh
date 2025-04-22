@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 COLOR_GREEN='\033[0;32m'
 COLOR_RED='\033[0;31m'
 COLOR_YELLOW='\033[0;33m'
@@ -21,5 +21,9 @@ function trizen_install() {
     trizen -S "$1" --noconfirm
   fi
 }
-
-pacman_install i3status
+pacman_install nvidia
+pacman_install nvidia-dkms
+pacman_install nvidia-settings
+pacman_install nvidia-prime
+pacman_install nvidia-utils
+pacman_install lib32-nvidia-utils

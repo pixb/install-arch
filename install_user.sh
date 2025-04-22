@@ -42,14 +42,6 @@ else
   fi
 fi
 
-# proxy
-http_proxy=http://192.168.123.187:10809
-https_proxy=http://192.168.123.187:10809
-ftp_proxy=http://192.168.123.187:10809
-export http_proxy
-export ftp_proxy
-export https_proxy
-
 if [ -d "${HOME}/dev" ]; then
   echo -e "${COLOR_GREEN}${HOME}/dev is exists${COLOR_NC}"
 else
@@ -65,7 +57,7 @@ else
   fi
   git clone https://aur.archlinux.org/trizen.git "${HOME}"/Downloads/trizen
   cd "${HOME}"/Downloads/trizen || exit
-  makepkg -si
+  yes | makepkg -si
 fi
 if [ -d "${HOME}/dev/vimrc" ]; then
   echo -e "${COLOR_GREEN}echo vimrc is exists${COLOR_NC}"
@@ -165,10 +157,6 @@ else
   rcup
 fi
 
-if [ ! -d "${HOME}/.config/nvim" ]; then
-  git clone https://github.com/pixb/nvimlua.git ~/.config/nvim
-fi
-
 trizen_install fastfetch
 pacman_install gdb
 pacman_install gcc
@@ -195,7 +183,7 @@ pacman_install openbsd-netcat
 
 pacman_install docker
 pacman_install docker-compose
-if [ -d /etc/docker ]; then
+if [ ! -d /etc/docker ]; then
   sudo mkdir -p /etc/docker
 fi
 if ! grep -q cf-workers /etc/docker/daemon.json; then
