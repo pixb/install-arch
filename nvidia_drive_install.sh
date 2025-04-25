@@ -22,7 +22,7 @@ function trizen_install() {
   fi
 }
 pacman_install nvidia
-pacman_install nvidia-dkms
+# pacman_install nvidia-dkms
 pacman_install nvidia-settings
 pacman_install nvidia-prime
 pacman_install nvidia-utils
