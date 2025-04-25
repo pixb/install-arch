@@ -13,5 +13,5 @@ else
   systemctl enable sshd
   systemctl start sshd
 fi
-pacstrap -i /mnt/ base linux linux-firmware
+pacstrap -i /mnt/ base linux linux-firmware lvm2 linux-headers --noconfirm
 genfstab -U /mnt >>/mnt/etc/fstab
