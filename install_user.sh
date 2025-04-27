@@ -174,6 +174,7 @@ pacman_install meson
 pacman_install htop
 pacman_install btop
 pacman_install duf
+pacman_install usbutils
 
 if [ ! -d $HOME/.tmux ]; then
   bash $HOME/dev/install-arch/tmux/config_tmux.sh
@@ -206,6 +207,13 @@ fi
 sudo systemctl enable docker
 sudo systemctl start docker
 
+pacman_install pipewire
+pacman_install pipewire-pulse
+pacman_install pipewire-alsa
+pacman_install wireplumber
+systemctl --user enable --now pipewire pipewire-pulse wireplumber
+
 pacman_install bluez
 pacman_install bluez-utils
+pacman_install bluetui
 sudo systemctl enable --now bluetooth.service
