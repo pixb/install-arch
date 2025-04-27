@@ -67,6 +67,7 @@ exec foot --server
 exec sleep 3 && $term -T "Scratchpad Tmux" tmux
 exec "fcitx5 -d"
 exec "wl-paste --watch cliphist store"
+exec dbus-update-activation-environment --systemd DISPALY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
 
 ### Key bindings
 #

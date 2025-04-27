@@ -96,8 +96,17 @@ else
   export PATH=$HOME/.pyenv/bin:$PATH
   eval "$(pyenv init -)"
 fi
+
 if command -v python3 >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}$(python3 --version) is installed${COLOR_NC}"
+  if [ -d "${HOME}/.venv" ]; then
+    echo -e "${COLOR_GREEN}${HOME}/.venv is exists.${COLOR_NC}"
+    source "${HOME}/.venv/bin/activate"
+  else
+    echo -e "${COLOR_YELLOW}${HOME}/.venv is not exists.${COLOR_NC}"
+    python3 -m venv "${HOME}/.venv"
+    source "${HOME}/.venv/bin/activate"
+  fi
 else
   echo -e "${COLOR_YELLOW} python3 is not install${COLOR_NC}"
   pyenv install 3.13.0
