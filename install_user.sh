@@ -205,3 +205,7 @@ fi
 
 sudo systemctl enable docker
 sudo systemctl start docker
+
+pacman_install bluez
+pacman_install bluez-utils
+sudo systemctl enable --now bluetooth.service

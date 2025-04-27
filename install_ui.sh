@@ -22,6 +22,9 @@ function trizen_install() {
   fi
 }
 
+pacman_install cpio
+pacman_install xorg-xinput
+pacman_install glfw-wayland
 pacman_install waybar
 pacman_install obsidian
 trizen_install google-chrome
