@@ -1,0 +1,6 @@
+[terminal]
+vt = "current"
+
+[default_session]
+command = "cage gtkgreet"
+user = "greeter"
