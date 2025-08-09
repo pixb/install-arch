@@ -220,6 +220,13 @@ fi
 
 sed -i 's/# *\(%wheel.*NOPASSWD: ALL\)/\1/' /etc/sudoers
 
+if pacman -Qi archlinux-keyring >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}archlinux-keyring is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}archlinux-keyring is not install${COLOR_NC}"
+  pacman -S archlinux-keyring --noconfirm
+fi
+
 if pacman -Qi grub >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}grub is installed${COLOR_NC}"
 else
