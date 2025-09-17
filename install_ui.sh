@@ -44,6 +44,7 @@ rm -rf "$HOME/.config/foot"
 ln -sf "$HOME/dev/install-arch/config/foot" "${HOME}/.config/foot"
 rm -rf "$HOME/.config/waybar"
 ln -sf "$HOME/dev/install-arch/config/waybar" "$HOME/.config/waybar"
+ln -sf "$HOME/dev/install-arch/config/chrome-flags.conf" "$HOME/.config/chrome-flags.conf"
 
 pacman_install wmenu
 
@@ -108,3 +109,4 @@ pacman_install cliphist
 pacman_install wl-clipboard
 pacman_install i3status
 ln -sf "$HOME/dev/install-arch/config/i3status" "$HOME/.config/i3status"
+pacman_install dunst libnotify
