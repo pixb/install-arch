@@ -175,6 +175,7 @@ pacman_install htop
 pacman_install btop
 pacman_install duf
 pacman_install usbutils
+pacman_install rust
 
 if [ ! -d $HOME/.tmux ]; then
   bash $HOME/dev/install-arch/tmux/config_tmux.sh
