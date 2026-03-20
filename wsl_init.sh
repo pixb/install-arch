@@ -215,3 +215,4 @@ fi
 sudo systemctl enable docker
 sudo systemctl start docker
 pacman_install lsof
+pacman_install nethogs
