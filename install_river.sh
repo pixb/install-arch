@@ -9,9 +9,8 @@ COLOR_RED='\033[0;31m'
 COLOR_BLUE='\033[0;34m'
 COLOR_NC='\033[0m'
 
-ZIG_VERSION="0.16.0"
-ZIG_PATH="/opt/zig-x86_64-linux-${ZIG_VERSION}"
-export PATH="$ZIG_PATH:$PATH"
+ZIG_VERSION_RIVER="0.16.0"
+ZIG_PATH_RIVER="/opt/zig-x86_64-linux-${ZIG_VERSION_RIVER}"
 
 log_info() { echo -e "${COLOR_BLUE}[INFO]${COLOR_NC} $1"; }
 log_ok() { echo -e "${COLOR_GREEN}[OK]${COLOR_NC} $1"; }
@@ -19,42 +18,28 @@ log_err() { echo -e "${COLOR_RED}[ERROR]${COLOR_NC} $1"; }
 
 SRC_DIR="$HOME/.local/src"
 
-export PATH="/opt/zig-x86_64-linux-${ZIG_VERSION}:/usr/local/bin:$PATH"
-
 # ========== 步骤 1: 安装编译依赖 ==========
 step1_deps() {
   log_info "=== 步骤 1: 安装编译依赖 ==="
 
-  if [ -d "$ZIG_PATH" ] && [ -x "$ZIG_PATH/zig" ]; then
-    log_ok "Zig 目录已存在: $ZIG_PATH"
-  elif command -v zig &>/dev/null && zig version &>/dev/null; then
-    local zig_ver=$(zig version 2>/dev/null)
-    if [ "$zig_ver" = "$ZIG_VERSION" ]; then
-      log_ok "Zig 已是目标版本: $ZIG_VERSION"
-    else
-      log_info "下载 zig $ZIG_VERSION..."
-      local zig_url="https://ziglang.org/download/${ZIG_VERSION}/zig-x86_64-linux-${ZIG_VERSION}.tar.xz"
-      local zig_file="/tmp/zig-linux-x86_64.tar.xz"
-
-      wget -q -O "$zig_file" "$zig_url" || curl -sL "$zig_url" -o "$zig_file"
-      sudo rm -rf /opt/zig
-      sudo tar -xf "$zig_file" -C /opt
-      sudo ln -sf /opt/zig-x86_64-linux-${ZIG_VERSION}/bin/zig /usr/local/bin/zig
-      rm -f "$zig_file"
-      log_ok "Zig $ZIG_VERSION 安装完成"
-    fi
+  if [ -d "$ZIG_PATH_RIVER" ] && [ -x "$ZIG_PATH_RIVER/zig" ]; then
+    log_ok "Zig (river) 目录已存在: $ZIG_PATH_RIVER"
   else
-    log_info "下载 zig $ZIG_VERSION..."
-    local zig_url="https://ziglang.org/download/${ZIG_VERSION}/zig-x86_64-linux-${ZIG_VERSION}.tar.xz"
-    local zig_file="/tmp/zig-linux-x86_64.tar.xz"
-
+    log_info "下载 zig $ZIG_VERSION_RIVER (river)..."
+    local zig_url="https://ziglang.org/download/${ZIG_VERSION_RIVER}/zig-x86_64-linux-${ZIG_VERSION_RIVER}.tar.xz"
+    local zig_file="/tmp/zig-river.tar.xz"
     wget -q -O "$zig_file" "$zig_url" || curl -sL "$zig_url" -o "$zig_file"
-    sudo rm -rf /opt/zig
+    sudo rm -rf "$ZIG_PATH_RIVER"
     sudo tar -xf "$zig_file" -C /opt
-    sudo ln -sf /opt/zig-x86_64-linux-${ZIG_VERSION}/bin/zig /usr/local/bin/zig
     rm -f "$zig_file"
-    log_ok "Zig $ZIG_VERSION 安装完成"
+    log_ok "Zig $ZIG_VERSION_RIVER 安装完成"
   fi
+
+  if ! command -v zig &>/dev/null; then
+    log_info "安装 zig (kwm)..."
+    sudo pacman -S --noconfirm zig
+  fi
+  log_ok "Zig $(zig version) (kwm)"
 
   sudo pacman -S --needed wlroots0.20 scdoc tllist wayland-protocols --noconfirm
   log_ok "依赖安装完成"
@@ -69,7 +54,8 @@ step2_install_river() {
   else
     [ ! -d "$src_dir" ] && git clone https://codeberg.org/river/river "$src_dir"
     cd "$src_dir"
-    sudo env "PATH=$ZIG_PATH:$PATH" SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt "$ZIG_PATH/zig" build -Doptimize=ReleaseSafe --prefix /usr/local install
+    export PATH="$ZIG_PATH_RIVER:$PATH"
+    sudo env "PATH=$PATH" SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt "$ZIG_PATH_RIVER/zig" build -Doptimize=ReleaseSafe --prefix /usr/local install
     log_ok "river 安装完成"
   fi
 }
@@ -83,26 +69,9 @@ step3_install_kwm() {
   else
     [ ! -d "$src_dir" ] && git clone https://codeberg.org/unixchad/kwm "$src_dir"
     cd "$src_dir"
-
-    # 下载 mvzr 依赖
-    local mvzr_file="/tmp/mvzr-0.3.8.tar.gz"
-    local mvzr_dir="$SRC_DIR/mvzr"
-    if [ ! -f "$mvzr_dir/mvzr-0.3.8/build.zig" ]; then
-      wget -q -O "$mvzr_file" "https://github.com/mnemnion/mvzr/archive/refs/tags/v0.3.8.tar.gz"
-      mkdir -p "$mvzr_dir"
-      tar -xf "$mvzr_file" -C "$mvzr_dir"
-      rm -f "$mvzr_file"
-    fi
-
-    # 修改 build.zig.zon 使用相对路径
-    if grep -q 'url = "https://github.com/mnemnion/mvzr' "$src_dir/build.zig.zon"; then
-      sed -i 's|.url = "https://github.com/mnemnion/mvzr/archive/refs/tags/v0.3.8.tar.gz",|.path = "../../mvzr/mvzr-0.3.8",|' "$src_dir/build.zig.zon"
-      sed -i '/mvzr-0.3.7-ZSOky1dvAQDTEE/d' "$src_dir/build.zig.zon"
-      log_info "已修改 mvzr 依赖为相对路径"
-    fi
-
+    git checkout master
     rm -rf .zig-cache zig-cache zig-out
-    sudo env "PATH=$ZIG_PATH:$PATH" SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt "$ZIG_PATH/zig" build -Doptimize=ReleaseSafe --prefix /usr/local install
+    sudo env "PATH=/usr/local/bin:/usr/bin:$PATH" SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt zig build -Doptimize=ReleaseSafe --prefix /usr/local install
     log_ok "kwm 安装完成"
   fi
 }
@@ -128,7 +97,6 @@ step5_config() {
 
   mkdir -p ~/.config/river
 
-  # 链接参考项目的配置，或者创建基础配置
   if [ -f ~/dev/code/github/unixchad/dotfiles/.config/river/init ]; then
     ln -sf ~/dev/code/github/unixchad/dotfiles/.config/river/init ~/.config/river/init
   else
