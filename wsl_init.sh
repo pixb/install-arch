@@ -1,8 +1,18 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 COLOR_GREEN='\033[0;32m'
 COLOR_RED='\033[0;31m'
 COLOR_YELLOW='\033[0;33m'
 COLOR_NC='\033[0m'
+
+# Exit when an error occurs
+set -e
+# Throw error when using an undefined variable
+set -u
+
+TIME="$(date +%Y-%m-%d_%H-%M-%S)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_NAME="$(basename "${BASH_SOURCE[0]}")"
+FILE_NAME="$(basename "${BASH_SOURCE[0]}" .sh)"
 
 function pacman_install() {
   if pacman -Qi "$1" &>/dev/null; then
@@ -23,12 +33,12 @@ function trizen_install() {
 }
 
 # config proxy
-if grep -q "http_proxy" /etc/profile; then
-  echo -e "${COLOR_GREEN}http_proxy is already set.${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}config http_proxy${COLOR_NC}"
-  sudo tee -a /etc/profile <"${HOME}/dev/install-arch/proxy.env"
-fi
+# if grep -q "http_proxy" /etc/profile; then
+#  echo -e "${COLOR_GREEN}http_proxy is already set.${COLOR_NC}"
+#else
+#  echo -e "${COLOR_YELLOW}config http_proxy${COLOR_NC}"
+#  sudo tee -a /etc/profile <"${HOME}/dev/install-arch/proxy.env"
+#fi
 # proxy
 # http_proxy=http://192.168.123.187:10809
 # https_proxy=http://192.168.123.187:10809
@@ -38,6 +48,7 @@ fi
 # export https_proxy
 sudo pacman-key --init
 sudo pacman-key --populate archlinux
+pacman_install openssh
 pacman_install zip
 pacman_install unzip
 pacman_install p7zip
@@ -96,7 +107,7 @@ pacman_install tmux
 pacman_install postgresql
 
 if [ ! -d "${HOME}/.tmux" ]; then
-  bash "${HOME}/dev/install-arch/tmux/config_tmux.sh"
+  bash "${SCRIPT_DIR}/tmux/config_tmux.sh"
 fi
 
 trizen_install duf
@@ -107,7 +118,7 @@ pacman_install ripgrep
 pacman_install yarn
 pacman_install neovim
 if [ ! -d "${HOME}/.config/nvim" ]; then
-  git clone https://github.com/pixb/nvimlua.git ~/.config/nvim
+  git clone https://github.com/pixb/pixvim.git ~/.config/nvim
 fi
 pacman_install fastfetch
 pacman_install fd
@@ -204,3 +215,4 @@ fi
 sudo systemctl enable docker
 sudo systemctl start docker
 pacman_install lsof
+pacman_install nethogs
