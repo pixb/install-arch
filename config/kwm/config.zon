@@ -41,8 +41,8 @@
         // .top
         // .bottom
         .position = .top,
-
-        .font = "SourceCodePro:size=13:weight=Medium",
+        // NotoSansM Nerd Font
+        .font = "NotoSansM Nerd Font:size=18:weight=Medium",
 
         .scheme = .{
             .normal = .{
