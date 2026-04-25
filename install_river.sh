@@ -41,7 +41,7 @@ step1_deps() {
   fi
   log_ok "Zig $(zig version) (kwm)"
 
-  sudo pacman -S --needed wlroots0.20 scdoc tllist wayland-protocols --noconfirm
+  sudo pacman -S --needed wlroots0.20 scdoc tllist wayland-protocols sysstat --noconfirm
   log_ok "依赖安装完成"
 }
 
