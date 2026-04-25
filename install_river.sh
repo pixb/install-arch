@@ -9,6 +9,11 @@ COLOR_RED='\033[0;31m'
 COLOR_BLUE='\033[0;34m'
 COLOR_NC='\033[0m'
 
+TIME="$(date +%Y-%m-%d_%H-%M-%S)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" || exit 1
+SCRIPT_NAME="$(basename "${BASH_SOURCE[0]}")"
+FILE_NAME="${SCRIPT_NAME%.*}"
+
 ZIG_VERSION_RIVER="0.16.0"
 ZIG_PATH_RIVER="/opt/zig-x86_64-linux-${ZIG_VERSION_RIVER}"
 
@@ -94,21 +99,8 @@ step4_install_damblocks() {
 # ========== 步骤 5: 配置 ==========
 step5_config() {
   log_info "=== 步骤 5: 配置 ==="
-
-  mkdir -p ~/.config/river
-
-  if [ -f ~/dev/code/github/unixchad/dotfiles/.config/river/init ]; then
-    ln -sf ~/dev/code/github/unixchad/dotfiles/.config/river/init ~/.config/river/init
-  else
-    cat >~/.config/river/init <<'EOF'
-#!/usr/bin/env sh
-# river + kwm init
-
-/usr/local/bin/kwm &
-${HOME}/.local/bin/damblocks --fifo &
-EOF
-    chmod +x ~/.config/river/init
-  fi
+  ln -sf "$SCRIPT_DIR/config/river" "$HOME/.config/river"
+  ln -sf "$SCRIPT_DIR/config/kwm" "$HOME/.config/kwm"
   log_ok "配置完成"
 }
 
