@@ -46,7 +46,8 @@ step1_deps() {
   fi
   log_ok "Zig $(zig version) (kwm)"
 
-  sudo pacman -S --needed wlroots0.20 scdoc tllist wayland-protocols sysstat --noconfirm
+  sudo pacman -S --needed wlroots0.20 scdoc tllist wayland-protocols sysstat gammastep --noconfirm
+  sudo pacman -S --needed kanshi swayidle stow --noconfirm
   log_ok "依赖安装完成"
 }
 
@@ -81,27 +82,17 @@ step3_install_kwm() {
   fi
 }
 
-# ========== 步骤 4: 安装 damblocks ==========
-step4_install_damblocks() {
-  log_info "=== 步骤 4: 安装 damblocks ==="
+# ========== 步骤 4: 安装 dotfiles ==========
+step4_install_dotfiles() {
+  log_info "=== 步骤 4: 安装 dotfiles ==="
   mkdir -p "$HOME/.local/bin"
-  local src_dir="$SRC_DIR/damblocks"
-  if [ -f "$HOME/.local/bin/damblocks" ]; then
-    log_ok "damblocks 已安装"
-  else
-    [ ! -d "$src_dir" ] && git clone https://codeberg.org/unixchad/damblocks "$src_dir"
-    cp "$src_dir/damblocks" "$HOME/.local/bin/"
-    chmod +x "$HOME/.local/bin/damblocks"
-    log_ok "damblocks 安装完成"
+  if [ ! -e "$HOME/dev/dotfiles" ]; then
+    git clone git@github.com:pixb/dotfiles.git "$HOME/dev/dotfiles"
   fi
-}
-
-# ========== 步骤 5: 配置 ==========
-step5_config() {
-  log_info "=== 步骤 5: 配置 ==="
-  ln -sf "$SCRIPT_DIR/config/river" "$HOME/.config/river"
-  ln -sf "$SCRIPT_DIR/config/kwm" "$HOME/.config/kwm"
-  log_ok "配置完成"
+  cd "$HOME/dev/dotfiles"
+  stow -t ~ .
+  log_ok "dotfiles 安装完成"
+  cd "$SCRIPT_DIR" || exit
 }
 
 main() {
@@ -111,8 +102,7 @@ main() {
   step1_deps
   step2_install_river
   step3_install_kwm
-  step4_install_damblocks
-  step5_config
+  step4_install_dotfiles
 
   echo ""
   echo "=== 安装完成 ==="
