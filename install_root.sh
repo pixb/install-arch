@@ -218,8 +218,8 @@ else
   passwd "${USER_NAME}"
 fi
 
-sed -i 's/# *\(%wheel.*NOPASSWD: ALL\)/\1/' /etc/sudoers
-
+# sed -i 's/# *\(%wheel.*NOPASSWD: ALL\)/\1/' /etc/sudoers
+sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^# //p' /etc/sudoers
 if pacman -Qi archlinux-keyring >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}archlinux-keyring is installed${COLOR_NC}"
 else
