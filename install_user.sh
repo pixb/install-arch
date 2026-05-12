@@ -218,5 +218,5 @@ pacman_install bluez
 pacman_install bluez-utils
 pacman_install bluetui
 sudo systemctl enable --now bluetooth.service
-
+pacman_install nethogs
 # trizen_install postman-bin

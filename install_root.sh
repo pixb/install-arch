@@ -253,3 +253,11 @@ if [ ! -d /boot/grub ]; then
 fi
 grub-install --target="$(uname -m)"-efi --efi-directory=/boot --bootloader-id=Arch
 grub-mkconfig -o /boot/grub/grub.cfg
+
+if pacman -Qi openssh >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}openssh is installed${COLOR_NC}"
+else
+  echo -e "${COLOR_YELLOW}openssh is not install${COLOR_NC}"
+  pacman -S openssh --noconfirm
+  systemctl enable sshd.service
+fi
